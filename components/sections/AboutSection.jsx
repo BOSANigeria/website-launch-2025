@@ -180,7 +180,7 @@ const About = () => {
               </div>
               
               <motion.div 
-                className="space-y-4 text-gray-700 text-lg leading-relaxed"
+                className="space-y-4 text-gray-700 text-lg leading-relaxed text-justify"
                 variants={staggerChildren}
               >
                 <motion.p variants={fadeInUp}>
@@ -217,7 +217,7 @@ const About = () => {
               </div>
               
               <motion.div 
-                className="space-y-4 text-gray-700 leading-relaxed text-lg"
+                className="space-y-4 text-gray-700 leading-relaxed text-lg text-justify"
                 variants={staggerChildren}
               >
                 <motion.p variants={fadeInUp}>

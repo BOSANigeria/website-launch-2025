@@ -116,7 +116,7 @@ const Navbar = () => {
               aria-label="Toggle mobile menu"
               className={`relative z-50 p-2 rounded-lg transition-all duration-300 ${
                 mobileMenuOpen 
-                  ? "bg-[#0F2C59] text-white fixed top-4 right-4" 
+                  ? "bg-black text-white fixed top-0" 
                   : "text-[#0F2C59] hover:bg-gray-100"
               }`}
             >
@@ -152,7 +152,7 @@ const Navbar = () => {
           }`}
         >
           {/* Menu Header */}
-          <div className="bg-gradient-to-r from-[#0F2C59] to-[#1a3d72] px-6 py-6 flex-shrink-0">
+          <div className="bg-black px-6 py-6 flex-shrink-0">
             <div className="flex items-center space-x-3">
               <div className="h-10 w-10 bg-white/10 rounded-lg flex items-center justify-center">
                 <Image
@@ -184,7 +184,7 @@ const Navbar = () => {
                     onClick={() => setMobileMenuOpen(false)}
                     className={`group flex items-center space-x-3 p-3 rounded-lg transition-all duration-200 transform hover:scale-[1.02] ${
                       isActive
-                        ? "bg-[#0F2C59] text-white shadow-lg"
+                        ? "bg-black text-white shadow-lg"
                         : "text-gray-700 hover:bg-gray-50 hover:text-[#0F2C59]"
                     }`}
                     style={{

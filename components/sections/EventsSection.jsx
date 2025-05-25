@@ -87,7 +87,7 @@ export default function UpcomingEvents() {
       </div>
 
       <div className="mt-16 text-center">
-        <a href="/events" className="bg-black hover:bg-[#b6952f] transition-colors text-white text-lg font-semibold py-8 px-8 shadow">
+        <a href="/events" className="bg-black hover:bg-[#b6952f] transition-colors text-white text-lg font-semibold py-6 px-6 rounded-md shadow">
           Our Annual Events
         </a>
       </div>

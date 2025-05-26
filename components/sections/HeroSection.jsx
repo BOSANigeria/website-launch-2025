@@ -165,7 +165,7 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <h1 className="text-white font-playfair text-4xl md:text-7xl font-bold mb-4">
+          <h1 className="text-white font-playfair text-4xl md:text-6xl font-bold mb-4">
             The Body of Senior Advocates of Nigeria
           </h1>
           <p className="text-white/90 text-lg md:text-xl mb-8 max-w-2xl">
@@ -178,7 +178,7 @@ const Hero = () => {
               transition={{ duration: 0.2 }}
             >
               <Link href="/about">
-                <Button className="w-full sm:w-auto bg-[#D4AF37] text-[#0F2C59] font-montserrat font-medium py-6 px-6 rounded-md hover:bg-opacity-90 transition duration-300 flex items-center justify-center space-x-2">
+                <Button className="w-full sm:w-auto bg-[#D4AF37] text-[#0F2C59] text-lg font-montserrat font-medium py-6 px-6 rounded-md hover:bg-opacity-90 transition duration-300 flex items-center justify-center space-x-2">
                   <span>Learn About BOSAN</span>
                   <svg
                     className="w-4 h-4 ml-2"
@@ -205,7 +205,7 @@ const Hero = () => {
               <Link href="/events">
                 <Button
                   variant="outline"
-                  className="w-full sm:w-auto bg-white text-[#0F2C59] font-montserrat font-medium py-6 px-6 rounded-md hover:bg-opacity-90 transition duration-300 flex items-center justify-center space-x-2"
+                  className="w-full sm:w-auto bg-white text-[#0F2C59] textmd md:text-lg font-montserrat font-medium py-6 px-6 rounded-md hover:bg-opacity-90 transition duration-300 flex items-center justify-center space-x-2"
                 >
                   <span>Upcoming Events</span>
                   <svg

@@ -103,131 +103,91 @@ const About = () => {
           </motion.div>
         </div>
 
-        <motion.section
-          className="py-24 sm:px-10"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeIn}
-        >
-  <h3 className="text-4xl md:text-5xl font-bold font-playfair text-center text-[#0F2C59] mb-12 relative">
-    Leadership
-    <span className="absolute bottom-[-16px] left-1/2 transform -translate-x-1/2 w-28 h-[4px] bg-[#D4AF37] rounded-full"></span>
-  </h3>
+        <section className="leadership-section py-24 px-6 sm:px-12 lg:px-20 bg-white text-slate-900">
+  <div className="max-w-6xl mx-auto">
+    {/* Heading */}
+    <header className="mb-16 text-center">
+      <h2 className="text-4xl sm:text-5xl font-serif font-semibold tracking-tight">
+        BOSAN Leadership
+      </h2>
+      <p className="mt-4 text-lg max-w-xl mx-auto text-slate-600">
+        Meet the individuals steering the leadership and operations of BOSAN with excellence and integrity.
+      </p>
+    </header>
 
-  {/* Chairman and Vice-Chairman */}
-  <div className="grid md:grid-cols-2 gap-12 mb-16">
-    {[
-      {
-        name: "Prince Lateef Fagbemi, SAN",
-        title: "Attorney General of the Federation",
-        role: "Chairman, BOSAN",
-        note: "As stipulated in Article 7 of the BOSAN Constitution.",
-        img: "/assets/BOSAN/prince-Lateef-fagbemi.jpg",
-      },
-      {
-        name: "Professor Alfred Bandele Kasunmu, SAN",
-        title: "Most Senior SAN (since 1979)",
-        role: "Vice-Chairman, BOSAN",
-        note: "Succeeded Professor Ben Nwabueze, SAN (late).",
-        img: "/assets/BOSAN/prof-alfred-bandele.jpg",
-      },
-    ].map((person, i) => (
-      <motion.div
-        key={i}
-        className="bg-white rounded-3xl border border-gray-200 shadow-md hover:shadow-2xl transition duration-300 p-8"
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.2 + i * 0.15 }}
-      >
-        <div className="flex flex-col items-center text-center">
-          <div className="w-36 h-36 rounded-full border-4 border-[#D4AF37] overflow-hidden mb-5 hover:scale-105 transition-transform duration-300">
-            <img src={person.img} alt={person.name} className="w-full h-full object-cover object-center" />
+    {/* Featured Leaders */}
+    <div className="grid gap-12 md:grid-cols-2 mb-24">
+      {[ 
+        {
+          name: "Prince Lateef Fagbemi, SAN",
+          title: "Attorney General of the Federation",
+          role: "Chairman, BOSAN",
+          note: "As stipulated in Article 7 of the BOSAN Constitution.",
+          img: "/assets/BOSAN/prince-Lateef-fagbemi.jpg"
+        },
+        {
+          name: "Professor Alfred Bandele Kasunmu, SAN",
+          title: "Most Senior SAN (since 1979)",
+          role: "Vice-Chairman, BOSAN",
+          note: "Succeeded Professor Ben Nwabueze, SAN (late).",
+          img: "/assets/BOSAN/prof-alfred-bandele.jpg"
+        }
+      ].map((person, i) => (
+        <article key={i} className="flex flex-col sm:flex-row items-start gap-6">
+          <img src={person.img} alt={person.name} className="w-40 h-40 object-cover rounded-xl" />
+          <div>
+            <h3 className="text-2xl font-bold font-serif mb-1">{person.name}</h3>
+            <p className="text-sm font-medium text-slate-500 mb-1">{person.title}</p>
+            <p className="text-sm italic text-slate-600 mb-2">{person.role}</p>
+            <p className="text-sm text-slate-700">{person.note}</p>
           </div>
-          <h4 className="text-xl font-semibold text-[#0F2C59]">{person.name}</h4>
-          <p className="text-lg text-[#D4AF37] mt-1 font-medium">{person.title}</p>
-          <p className="text-gray-700 mt-1 italic">{person.role}</p>
-          <p className="text-md text-gray-500 mt-4 max-w-sm">{person.note}</p>
-        </div>
-      </motion.div>
-    ))}
-  </div>
-
-  {/* Committee Chair */}
-  <motion.div
-    className="bg-white rounded-3xl border border-gray-200 shadow-md p-10 max-w-xl mx-auto text-center mb-16"
-    initial={{ opacity: 0, y: 30 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ delay: 0.5 }}
-  >
-    <div className="flex flex-col items-center">
-      <div className="w-32 h-32 mb-5 rounded-full border-4 border-[#0F2C59] overflow-hidden hover:scale-105 transition-transform duration-300">
-        <img src="/assets/BOSAN/paul-usoro.png" alt="Paul Usoro, SAN" className="w-full h-full object-cover" />
-      </div>
-      <h4 className="text-xl font-semibold text-[#0F2C59]">Paul Usoro, SAN</h4>
-      <p className="text-gray-700 mt-1 italic">Chairman, BOSAN Leadership Committee</p>
+        </article>
+      ))}
     </div>
-  </motion.div>
 
-  {/* BOSAN Officers */}
-  <h4 className="font-playfair text-2xl md:text-3xl font-bold text-[#0F2C59] text-center mb-10">BOSAN Officers</h4>
-  <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
-    {[
-      {
-        name: "Olumide Sofowora, SAN, CArb",
-        role: "Secretary",
-        img: "/assets/BOSAN/olumide-sofowora.jpg"
-      },
-      {
-        name: "Oladipo Olasope, SAN",
-        role: "Assistant Secretary",
-        img: "/assets/BOSAN/oladipo-olasope.jpg"
-      },
-      {
-        name: "Abimbola Akeredolu, SAN, FCIArb",
-        role: "Treasurer",
-        img: "/assets/BOSAN/abimbola-akeredolu.png"
-      },
-      {
-        name: "Jean Chiazor Anishere, SAN, FCIArb",
-        role: "Financial Secretary",
-        img: "/assets/BOSAN/jean.jpg"
-      }
-    ].map((officer, i) => (
-      <motion.div
-        key={i}
-        className="bg-white rounded-xl p-6 text-center border border-gray-100 shadow-sm hover:shadow-md transition-all"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.3 + i * 0.1 }}
-      >
-        <div className="w-28 h-28 mx-auto mb-4 rounded-full overflow-hidden border-4 border-[#D4AF37] hover:scale-105 transition-transform duration-300">
-          <img src={officer.img} alt={officer.name} className="w-full h-full object-cover" />
-        </div>
-        <h5 className="text-lg font-medium text-[#0F2C59]">{officer.name}</h5>
-        <p className="text-md text-gray-600 mt-1">{officer.role}</p>
-      </motion.div>
-    ))}
-  </div>
-  <motion.div
-    className="mt-12 bg-white rounded-2xl shadow-xl border border-gray-100 p-6 max-w-lg mx-auto text-center"
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ delay: 1 }}
-  >
-    <div className="flex flex-col items-center">
-      <div className="w-28 h-28 mb-4 rounded-full border-2 border-[#0F2C59] overflow-hidden hover:scale-105 transition-transform duration-300">
-        <img src="/assets/BOSAN/abdul.jpg" alt="Abdul Mohammed, SAN, FCIArb" className="w-full h-full object-cover" />
-      </div>
-      <h5 className="text-xl font-bold text-[#0F2C59]">Abdul Mohammed, SAN, FCIArb</h5>
-      <p className="text-[#343A40]/80 mt-1">Programming and Publicity Secretary</p>
+    {/* Committee Chair */}
+    <div className="border-t border-slate-200 pt-12 mb-20 text-center">
+      <img src="/assets/BOSAN/paul-usoro.png" alt="Paul Usoro, SAN" className="w-40 h-40 object-cover rounded-xl mx-auto mb-4" />
+      <h3 className="text-xl font-bold">Paul Usoro, SAN</h3>
+      <p className="text-slate-600">Chairman, BOSAN Leadership Committee</p>
     </div>
-  </motion.div>
-</motion.section>
+
+    {/* Officers Grid */}
+    <section>
+      <h4 className="text-3xl font-serif font-semibold mb-8">BOSAN Officers</h4>
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
+        {[
+          {
+            name: "Olumide Sofowora, SAN, CArb",
+            role: "Secretary",
+            img: "/assets/BOSAN/olumide-sofowora.jpg"
+          },
+          {
+            name: "Oladipo Olasope, SAN",
+            role: "Assistant Secretary",
+            img: "/assets/BOSAN/oladipo-olasope.jpg"
+          },
+          {
+            name: "Abimbola Akeredolu, SAN, FCIArb",
+            role: "Treasurer",
+            img: "/assets/BOSAN/abimbola-akeredolu.png"
+          },
+          {
+            name: "Jean Chiazor Anishere, SAN, FCIArb",
+            role: "Financial Secretary",
+            img: "/assets/BOSAN/jean.jpg"
+          }
+        ].map((officer, i) => (
+          <article key={i} className="text-center">
+            <img src={officer.img} alt={officer.name} className="w-24 h-24 mx-auto rounded-full object-cover mb-4" />
+            <h5 className="text-lg font-semibold">{officer.name}</h5>
+            <p className="text-sm text-slate-500">{officer.role}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  </div>
+</section>
 
         {/* Aims and Objectives Section */}
         <motion.div

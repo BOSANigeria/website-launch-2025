@@ -126,7 +126,7 @@ const About = () => {
           <div ref={titleRef}>
             <AnimatedText 
               text="About BOSAN"
-              className="text-black font-playfair font-bold text-4xl md:text-4xl mb-2"
+              className="text-black aboutt font-bold text-4xl md:text-4xl mb-2"
             />
           </div>
           
@@ -265,7 +265,7 @@ const About = () => {
                 viewport={{ once: true }}
                 transition={{ delay: 0.5 }}
               >
-                <p className="text-sm font-medium">BOSAN Annual Gathering</p>
+                <p className="text-sm font-medium">7th Annual Inductkon</p>
                 <p className="text-xs opacity-90">Distinguished members in session</p>
               </motion.div>
             </motion.div>

@@ -9,7 +9,8 @@ const resources = [
   { id: 4, title: "Leadership: Bridging the Gap Between Expectation and Performance", url: "/Resources/LEADERSHIP-BRIDGING-THE-GAP-BETWEEN-EXPECTATION-AND -PERFORMANCE.pdf" },
   { id: 5, title: "Paper by Hon. Justice Ejembi Eko, JSC, at the Induction Programme for the 2021 Senior Advocates", url: "/Resources/PAPER-BY-HON-JUSTICE-EJEMBI-EKO-JSC-AT-THE-INDUCTION-PROGRAMME-FOR-THE-2021-SENIOR-ADVOCATES.pdf" },
   { id: 6, title: "Paper presented by Chief Folake Solanke, SAN", url: "/Resources/Paper-Presented-by-Chief-Folake-Solanke-SAN(1).pdf" },
-  { id: 7, title: "The Pre-Swearing Induction Programme – December 1, 2021.", url: "/Resources/THE-PRE-SWEARING-INDUCTION-PROGRAMME-DECEMBER-1-2021.pdf" },
+  { id: 7, title: "2022 Guideline For Conferment of the Rank of Senior Advocate of Nigeria,",
+     url: "/Resources/2022-Guideline-For-Conferment-of-the-Rank-of-Senior-Advocate-of-Nigeria.pdf" },
   { id: 8, title: "Bosan Ethics Committee Guidelines Procedural Rules 2023", url: "/Resources/BOSAN-ETHICS-COMMITTEE-GUIDELINES-PROCEDURAL-RULES-2023.pdf" },
   { id: 9, title: "Code of Dressing for Senior Advocates of Nigeria", url: "/Resources/CODE-OF-DRESSING-SAN.pdf" },
 ];

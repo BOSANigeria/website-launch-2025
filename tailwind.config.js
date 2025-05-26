@@ -7,6 +7,10 @@ module.exports = {
   ],
   theme: {
     extend: { 
+      colors: {
+        primary: "Quicksand",
+        secondary: "Playfair Display "
+      }
     },
   },
   plugins: [],

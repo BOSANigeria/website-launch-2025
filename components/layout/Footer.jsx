@@ -160,27 +160,27 @@ const Footer = () => {
             <ul className="space-y-2">
               <li>
                 <Link href="#" className="text-gray-400 hover:text-[#D4AF37] transition duration-300 cursor-pointer">
-                  Legal Updates
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-gray-400 hover:text-[#D4AF37] transition duration-300 cursor-pointer">
-                  Publications
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-gray-400 hover:text-[#D4AF37] transition duration-300 cursor-pointer">
                   Media Gallery
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-gray-400 hover:text-[#D4AF37] transition duration-300 cursor-pointer">
-                  FAQs
+                <Link href="https://supremecourt.gov.ng" className="text-gray-400 hover:text-[#D4AF37] transition duration-300 cursor-pointer">
+                  Supreme Court
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-gray-400 hover:text-[#D4AF37] transition duration-300 cursor-pointer">
-                  Privacy Policy
+                <Link href="https://www.courtofappeal.gov.ng" className="text-gray-400 hover:text-[#D4AF37] transition duration-300 cursor-pointer">
+                  Court of Appeal
+                </Link>
+              </li>
+              <li>
+                <Link href="https://njc.gov.ng" className="text-gray-400 hover:text-[#D4AF37] transition duration-300 cursor-pointer">
+                  National Judicial Council
+                </Link>
+              </li>
+              <li>
+                <Link href="https://fhc.gov.ng" className="text-gray-400 hover:text-[#D4AF37] transition duration-300 cursor-pointer">
+                  Federal High Court
                 </Link>
               </li>
             </ul>

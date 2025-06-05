@@ -85,7 +85,7 @@ const Committee = () => {
     <div className="min-h-screen bg-white px-4 py-8 md:px-8">
       {/* Title */}
       <div className="text-center mb-10">
-        <h1 className="text-3xl md:text-4xl font-bold text-black">
+        <h1 className="text-3xl md:text-4xl font-bold text-black font-primary">
           BOSAN Committees
         </h1>
         <div className="h-1 w-24 bg-yellow-500 mx-auto mt-2"></div>
@@ -99,7 +99,7 @@ const Committee = () => {
               <button
                 key={index}
                 onClick={() => setActiveTab(index)}
-                className={`py-4 px-6 text-lg font-medium mr-4 border-b-2 transition-colors duration-300 ${
+                className={`py-4 px-6 text-lg font-secondary font-medium mr-4 border-b-2 transition-colors duration-300 ${
                   activeTab === index
                     ? "border-yellow-500 text-[#0F2C59]"
                     : "border-transparent text-gray-500 hover:text-[#0F2C59] hover:border-gray-300"

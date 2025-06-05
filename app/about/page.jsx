@@ -33,7 +33,7 @@ const About = () => {
           viewport={{ once: true }}
           variants={fadeIn}
         >
-          <h2 className="text-[#0F2C59] font-playfair font-bold text-3xl md:text-4xl mb-4">About BOSAN</h2>
+          <h2 className="text-black font-bold text-3xl md:text-4xl mb-4">About BOSAN</h2>
           <div className="h-1 w-20 bg-[#D4AF37] mx-auto"></div>
           <p className="text-[#343A40]/80 text-lg mt-6 max-w-2xl mx-auto text-justify md:text-center">
             The Body of Senior Advocates of Nigeria (BOSAN) is an independent organization comprising highly 
@@ -51,7 +51,7 @@ const About = () => {
             variants={staggerChildren}
           >
             <motion.div variants={fadeIn}>
-              <h3 className="font-playfair text-2xl font-bold text-[#0F2C59] mb-4 relative">
+              <h3 className="text-2xl font-bold text-black mb-4 relative">
                 The Body
                 <span className="absolute bottom-[-10px] left-0 w-20 h-[3px] bg-[#D4AF37]"></span>
               </h3>
@@ -69,7 +69,7 @@ const About = () => {
             </motion.div>
             
             <motion.div variants={fadeIn} className="mt-8">
-              <h3 className="font-playfair text-2xl font-bold text-[#0F2C59] mb-4 relative">
+              <h3 className="text-2xl font-bold text-black mb-4 relative">
                 Membership
                 <span className="absolute bottom-[-10px] left-0 w-20 h-[3px] bg-[#D4AF37]"></span>
               </h3>
@@ -96,28 +96,26 @@ const About = () => {
             transition={{ duration: 0.7 }}
           >
             <img 
-              src="https://images.unsplash.com/photo-1573164574572-cb89e39749b4?auto=format&fit=crop&w=800&q=80" 
+              src="/hero/bosan4.jpg" 
               alt="BOSAN gathering" 
               className="w-full h-full object-cover"
             />
           </motion.div>
         </div>
 
-        <section className="leadership-section py-24 px-6 sm:px-12 lg:px-20 bg-white text-slate-900">
-  <div className="max-w-6xl mx-auto">
+        <section className="bg-white py-28 px-6 sm:px-12 lg:px-20 text-slate-900">
+  <div className="max-w-7xl mx-auto">
     {/* Heading */}
-    <header className="mb-16 text-center">
-      <h2 className="text-4xl sm:text-5xl font-serif font-semibold tracking-tight">
-        BOSAN Leadership
-      </h2>
-      <p className="mt-4 text-lg max-w-xl mx-auto text-slate-600">
-        Meet the individuals steering the leadership and operations of BOSAN with excellence and integrity.
+    <header className="text-center mb-24">
+      <h2 className="text-5xl font-primary font-semibold tracking-tight">BOSAN Leadership</h2>
+      <p className="mt-5 text-lg text-slate-600 max-w-2xl mx-auto">
+        The visionary leaders entrusted with guiding BOSAN’s mission and values.
       </p>
     </header>
 
-    {/* Featured Leaders */}
-    <div className="grid gap-12 md:grid-cols-2 mb-24">
-      {[ 
+    {/* Featured Leaders Grid */}
+    <div className="grid gap-16 lg:grid-cols-2 mb-32">
+      {[
         {
           name: "Prince Lateef Fagbemi, SAN",
           title: "Attorney General of the Federation",
@@ -132,30 +130,38 @@ const About = () => {
           note: "Succeeded Professor Ben Nwabueze, SAN (late).",
           img: "/assets/BOSAN/prof-alfred-bandele.jpg"
         }
-      ].map((person, i) => (
-        <article key={i} className="flex flex-col sm:flex-row items-start gap-6">
-          <img src={person.img} alt={person.name} className="w-40 h-40 object-cover rounded-xl" />
-          <div>
-            <h3 className="text-2xl font-bold font-serif mb-1">{person.name}</h3>
-            <p className="text-sm font-medium text-slate-500 mb-1">{person.title}</p>
-            <p className="text-sm italic text-slate-600 mb-2">{person.role}</p>
-            <p className="text-sm text-slate-700">{person.note}</p>
+      ].map((leader, i) => (
+        <div key={i} className="p-8 rounded-2xl transition group">
+          <img
+            src={leader.img}
+            alt={leader.name}
+            className="w-full h-[360px] object-contain rounded-xl mb-6"
+          />
+          <div className="text-center font-primary">
+            <h3 className="text-2xl font-semibold mb-1 group-hover:text-blue-700 transition">{leader.name}</h3>
+            <p className="text-sm text-slate-500 mb-1">{leader.title}</p>
+            <p className="text-sm italic text-slate-600 mb-3">{leader.role}</p>
+            <p className="text-sm text-slate-700">{leader.note}</p>
           </div>
-        </article>
+        </div>
       ))}
     </div>
 
     {/* Committee Chair */}
-    <div className="border-t border-slate-200 pt-12 mb-20 text-center">
-      <img src="/assets/BOSAN/paul-usoro.png" alt="Paul Usoro, SAN" className="w-40 h-40 object-cover rounded-xl mx-auto mb-4" />
-      <h3 className="text-xl font-bold">Paul Usoro, SAN</h3>
-      <p className="text-slate-600">Chairman, BOSAN Leadership Committee</p>
+    <div className="text-center mb-32">
+      <img
+        src="/assets/BOSAN/paul-usoro.png"
+        alt="Paul Usoro, SAN"
+        className="w-32 h-32 object-cover rounded-full mx-auto mb-5 shadow"
+      />
+      <h4 className="text-2xl font-primary font-semibold">Paul Usoro, SAN</h4>
+      <p className="text-slate-500">Chairman, BOSAN Leadership Committee</p>
     </div>
 
-    {/* Officers Grid */}
+    {/* Officers */}
     <section>
-      <h4 className="text-3xl font-serif font-semibold mb-8">BOSAN Officers</h4>
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
+      <h4 className="text-3xl font-primary font-semibold mb-12 text-center">BOSAN Officers</h4>
+      <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {[
           {
             name: "Olumide Sofowora, SAN, CArb",
@@ -178,16 +184,21 @@ const About = () => {
             img: "/assets/BOSAN/jean.jpg"
           }
         ].map((officer, i) => (
-          <article key={i} className="text-center">
-            <img src={officer.img} alt={officer.name} className="w-24 h-24 mx-auto rounded-full object-cover mb-4" />
+          <div key={i} className="text-center bg-slate-50 p-6 rounded-xl shadow-sm hover:shadow-md transition">
+            <img
+              src={officer.img}
+              alt={officer.name}
+              className="w-24 h-24 rounded-full object-cover mx-auto mb-4"
+            />
             <h5 className="text-lg font-semibold">{officer.name}</h5>
             <p className="text-sm text-slate-500">{officer.role}</p>
-          </article>
+          </div>
         ))}
       </div>
     </section>
   </div>
 </section>
+
 
         {/* Aims and Objectives Section */}
         <motion.div
@@ -197,7 +208,7 @@ const About = () => {
           viewport={{ once: true }}
           variants={fadeIn}
         >
-          <h3 className="font-playfair text-2xl font-bold text-[#0F2C59] mb-6 relative">
+          <h3 className="font-primary text-2xl font-bold text-[#0F2C59] mb-6 relative">
             Aims and Objectives
             <span className="absolute bottom-[-10px] left-0 w-20 h-[3px] bg-[#D4AF37]"></span>
           </h3>
@@ -254,7 +265,7 @@ const About = () => {
           transition={{ delay: 0.3 }}
         >
           <Link href="/members">
-            <Button className="bg-transparent border border-[#0F2C59] text-[#0F2C59] text-lg font-montserrat font-medium py-8 px-8 rounded-md hover:bg-[#0F2C59] hover:text-white transition duration-300">
+            <Button className="bg-transparent border border-[#0F2C59] text-[#0F2C59] text-lg font-secondary font-medium py-8 px-8 rounded-md hover:bg-[#0F2C59] hover:text-white transition duration-300">
               Our Disinguished Members
             </Button>
           </Link>

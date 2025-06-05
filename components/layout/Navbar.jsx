@@ -75,7 +75,7 @@ const Navbar = () => {
               />
             </div>
             <div>
-              <h3 className="text-black font-playfair font-bold text-2xl sm:text-3xl">
+              <h3 className="text-black font-Quicksand font-bold text-2xl sm:text-3xl">
                 BOSAN
               </h3>
             </div>

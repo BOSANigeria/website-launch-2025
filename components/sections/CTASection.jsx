@@ -18,7 +18,7 @@ const CallToAction = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-white font-playfair font-bold text-2xl md:text-3xl mb-2">Ready to Connect with BOSAN?</h2>
+            <h2 className="text-white font-primary font-bold text-2xl md:text-3xl mb-2">Ready to Connect with BOSAN?</h2>
             <p className="text-white/80">Join us in upholding excellence in Nigeria's legal profession.</p>
           </motion.div>
           
@@ -32,7 +32,7 @@ const CallToAction = () => {
               transition={{ duration: 0.6 }}
             >
               <Link href="/events" passHref>
-                <Button className="w-full sm:w-auto bg-[#D4AF37] text-[#0F2C59] font-montserrat font-medium py-3 px-6 rounded-md hover:bg-opacity-90 transition duration-300">
+                <Button className="w-full sm:w-auto bg-[#D4AF37] text-[#0F2C59] font-secondary font-medium py-3 px-6 rounded-md hover:bg-opacity-90 transition duration-300">
                   Register for an Event
                 </Button>
               </Link>
@@ -47,7 +47,7 @@ const CallToAction = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <Link href={user ? "/dashboard" : "/auth"} passHref>
-                <Button className="w-full sm:w-auto bg-white text-[#0F2C59] font-montserrat font-medium py-3 px-6 rounded-md hover:bg-opacity-90 transition duration-300">
+                <Button className="w-full sm:w-auto bg-white text-[#0F2C59] font-secondary font-medium py-3 px-6 rounded-md hover:bg-opacity-90 transition duration-300">
                   {user ? "Member Dashboard" : "Member Login"}
                 </Button>
               </Link>

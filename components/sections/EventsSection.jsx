@@ -163,7 +163,7 @@ export default function UpcomingEvents() {
       viewport={{ once: true }}
       variants={fadeIn}
     >
-      <h3 className="text-3xl font-bold text-black text-center relative mb-12">
+      <h3 className="font-primary text-3xl font-bold text-black text-center relative mb-12">
         Events
         <span className="absolute bottom-[-10px] left-1/2 transform -translate-x-1/2 w-24 h-[3px] bg-[#D4AF37]"></span>
       </h3>
@@ -227,12 +227,12 @@ export default function UpcomingEvents() {
                   ))}
                 </div> */}
 
-                <h4 className="text-xl font-bold text-black mb-3 line-clamp-2">{event.title}</h4>
+                <h4 className="font-primary text-xl font-bold text-black mb-3 line-clamp-2">{event.title}</h4>
                 
                 <div className="space-y-2 mb-4">
                   <div className="flex items-center gap-2 text-sm text-gray-600">
                     <MapPin className="w-4 h-4" />
-                    <span>{event.location}</span>
+                    <span className="text-lg font-secondary">{event.location}</span>
                   </div>
                   
                   {/* {event.venue !== "TBD" && (

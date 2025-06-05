@@ -6,13 +6,12 @@ module.exports = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: { 
-      colors: {
-        primary: "Quicksand",
-        secondary: "Playfair Display "
-      }
+    extend: {
+      fontFamily: {
+        primary: "Quicksand, sans-serif",
+        secondary: "Playfair Display, serif"
+      },
     },
   },
   plugins: [],
 }
-

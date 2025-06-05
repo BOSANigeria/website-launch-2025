@@ -6,15 +6,15 @@ import Link from "next/link"; // <-- Updated import
 const announcements = [
   {
     id: "1",
-    title: "BOSAN AGM Scheduled for May 25th, 2025",
+    title: "BOSAN AGM Scheduled for 28th June, 2025",
     content:
-      "The Body of Senior Advocates of Nigeria (BOSAN) will hold its Annual General Meeting at the Eko Hotel, Lagos. All members are encouraged to attend.",
+      "The Body of Senior Advocates of Nigeria (BOSAN) will hold its Annual General Meeting at Manhattan event center  in Ibadan, NIgeria in June 2025.",
   },
   {
     id: "2",
     title: "Call for Papers: Legal Reform Symposium",
     content:
-      "Submissions are now open for the 2025 Legal Reform Symposium. Deadline is April 30. Selected papers will be published in the BOSAN Journal.",
+      "BOSAN Law Practice Journal is currently been reviewed and would be published soo",
   },
 ];
 
@@ -34,7 +34,7 @@ export default function Announcements() {
           variants={fadeInUp}
           className="flex items-center mb-8"
         >
-          <h2 className="text-black font-playfair font-bold text-3xl">Latest Announcements</h2>
+          <h2 className="text-black font-primary font-bold text-3xl">Latest Announcements</h2>
           <div className="ml-4 h-[2px] bg-gray-300 flex-grow"></div>
         </motion.div>
 
@@ -63,7 +63,7 @@ export default function Announcements() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-montserrat font-semibold text-black text-lg mb-1">
+                  <h3 className="font-primary font-semibold text-black text-lg mb-1">
                     {announcement.title}
                   </h3>
                   <p className="text-black/80 leading-relaxed text-md">{announcement.content}</p>

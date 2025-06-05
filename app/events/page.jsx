@@ -246,14 +246,14 @@ export default function BosanEvents() {
             <div className="lg:w-1/4">
               <div className="bg-white rounded-xl shadow-md overflow-hidden sticky top-8">
                 <div className="p-6 bg-black text-white">
-                  <h2 className="text-xl font-bold font-playfair">Our Programs</h2>
+                  <h2 className="text-xl font-bold font-primary">Our Programs</h2>
                 </div>
                 <nav className="p-3">
                   {bosanPrograms.map((program) => (
                     <button
                       key={program.id}
                       onClick={() => setActiveProgram(program.id)}
-                      className={`w-full text-left px-4 py-4 rounded-lg mb-2 flex items-center transition-all ${
+                      className={`font-secondary w-full text-left px-4 py-4 rounded-lg mb-2 flex items-center transition-all ${
                         activeProgram === program.id
                           ? "bg-black text-white font-medium"
                           : "hover:bg-gray-100"
@@ -287,7 +287,7 @@ export default function BosanEvents() {
                   </div>
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 p-8 bg-black">
-                  <h2 className="text-2xl md:text-3xl font-bold text-white font-playfair tracking-tight">
+                  <h2 className="text-2xl md:text-3xl font-bold text-white font-primary tracking-tight">
                     {currentProgram.title}
                   </h2>
                 </div>
@@ -302,7 +302,7 @@ export default function BosanEvents() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.3 }}
-                    className="prose prose-slate max-w-none prose-headings:font-playfair prose-headings:text-[#0F2C59] prose-headings:tracking-tight prose-h3:text-2xl prose-h4:text-xl prose-a:text-[#D4AF37] prose-a:no-underline hover:prose-a:underline prose-strong:text-[#0F2C59] text-justify prose-p:text-justify prose-p:leading-relaxed prose-li:text-justify"
+                    className="prose prose-slate max-w-none prose-headings:font-primary prose-headings:text-[#0F2C59] prose-headings:tracking-tight prose-h3:text-2xl prose-h4:text-xl prose-a:text-[#D4AF37] prose-a:no-underline hover:prose-a:underline prose-strong:text-[#0F2C59] text-justify prose-p:text-justify prose-p:leading-relaxed prose-li:text-justify"
                     dangerouslySetInnerHTML={{ __html: currentProgram.content }}
                   />
                 </AnimatePresence>
@@ -323,7 +323,7 @@ export default function BosanEvents() {
                   >
                     <div className="flex items-center mb-3">
                       <span className="text-[#D4AF37] mr-3">{program.icon}</span>
-                      <h3 className="font-medium text-[#0F2C59] font-playfair">{program.title}</h3>
+                      <h3 className="font-medium text-[#0F2C59] font-primary">{program.title}</h3>
                     </div>
                     <p className="text-sm text-gray-600 line-clamp-3">
                       {program.content
@@ -351,7 +351,7 @@ export default function BosanEvents() {
       {/* Contact/CTA Section */}
       <div className="bg-black mt-16 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-4 font-playfair tracking-tight">
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-4 font-primary tracking-tight">
             Interested in Our Programs?
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto mb-8 leading-relaxed">

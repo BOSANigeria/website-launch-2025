@@ -124,10 +124,10 @@ const About = () => {
           variants={fadeInUp}
         >
           <div ref={titleRef}>
-            <AnimatedText 
-              text="About BOSAN"
-              className="text-black aboutt font-bold text-4xl md:text-4xl mb-2"
-            />
+          <AnimatedText 
+            text="About BOSAN"
+            className="text-black font-bold text-4xl md:text-4xl mb-2 font-primary"
+          />
           </div>
           
           <motion.div 
@@ -139,7 +139,7 @@ const About = () => {
           />
           
           <motion.p 
-            className="text-gray-700 text-lg md:text-xl mt-8 max-w-3xl mx-auto leading-relaxed"
+            className="text-gray-700 text-lg md:text-xl mt-8 max-w-3xl mx-auto leading-relaxed font-secondary"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -167,7 +167,7 @@ const About = () => {
               className="group"
             >
               <div className="relative mb-6">
-                <h3 className="font-playfair text-3xl font-bold text-black mb-2 relative inline-block">
+                <h3 className="text-3xl font-bold text-black mb-2 relative inline-block">
                   The Body
                 </h3>
                 <motion.span 
@@ -204,7 +204,7 @@ const About = () => {
               className="group"
             >
               <div className="relative mb-6">
-                <h3 className="font-playfair text-3xl font-bold text-black mb-2 relative inline-block">
+                <h3 className="text-3xl font-bold text-black mb-2 relative inline-block">
                   Membership
                 </h3>
                 <motion.span 
@@ -265,7 +265,7 @@ const About = () => {
                 viewport={{ once: true }}
                 transition={{ delay: 0.5 }}
               >
-                <p className="text-sm font-medium">7th Annual Inductkon</p>
+                <p className="text-sm font-medium">7th Annual Induction</p>
                 <p className="text-xs opacity-90">Distinguished members in session</p>
               </motion.div>
             </motion.div>
@@ -285,7 +285,7 @@ const About = () => {
             whileTap={{ scale: 0.95 }}
           >
             <Link href="/about">
-              <Button className="bg-transparent border-2 border-black text-black text-lg font-montserrat font-semibold py-8 px-8 hover:bg-black hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl">
+              <Button className="bg-transparent border-2 border-black text-black text-lg font-secondary font-semibold py-8 px-8 hover:bg-black hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl">
                 Learn More About BOSAN
               </Button>
             </Link>

@@ -114,9 +114,9 @@ const Contact = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="font-playfair font-bold text-4xl md:text-5xl mb-4">Contact Us</h1>
+            <h1 className="font-primary font-bold text-4xl md:text-5xl mb-4">Contact Us</h1>
             <div className="h-1 w-32 bg-[#D4AF37] mx-auto"></div>
-            <p className="text-white/80 mt-6 max-w-3xl mx-auto text-lg">
+            <p className="font-secondary text-white/80 mt-6 max-w-3xl mx-auto text-lg">
               Have questions about BOSAN? We're here to help. Reach out to us through any of the following channels.
             </p>
           </motion.div>
@@ -172,9 +172,9 @@ const Contact = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="font-playfair font-bold text-3xl md:text-4xl mb-4">Get In Touch</h2>
+            <h2 className="font-primary font-bold text-3xl md:text-4xl mb-4">Get In Touch</h2>
             <div className="h-1 w-20 bg-[#D4AF37] mx-auto"></div>
-            <p className="text-white/80 mt-6 max-w-2xl mx-auto">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+            <p className=" font-secondary text-white/80 mt-6 max-w-2xl mx-auto">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
           </motion.div>
           
           <div className="grid md:grid-cols-2 gap-12">
@@ -185,7 +185,7 @@ const Contact = () => {
               transition={{ duration: 0.6 }}
             >
               <div className="bg-white/10 p-6 rounded-lg backdrop-blur-sm">
-                <h3 className="font-playfair text-2xl font-bold mb-6">Send Us a Message</h3>
+                <h3 className="font-secondary text-2xl font-bold mb-6">Send Us a Message</h3>
                 
                 <form onSubmit={onSubmit} className="space-y-4">
                   <div className="form-item">
@@ -240,7 +240,7 @@ const Contact = () => {
                   <button 
                     type="submit" 
                     disabled={isSubmitting}
-                    className="w-full bg-[#D4AF37] text-[#0F2C59] font-montserrat font-medium py-3 px-6 rounded hover:bg-opacity-90 transition duration-300 flex items-center justify-center"
+                    className="w-full bg-[#D4AF37] text-[#0F2C59] font-secondary font-medium py-3 px-6 rounded hover:bg-opacity-90 transition duration-300 flex items-center justify-center"
                   >
                     <span>{isSubmitting ? "Sending..." : "Send Message"}</span>
                     <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -258,7 +258,7 @@ const Contact = () => {
               transition={{ duration: 0.6 }}
             >
               <div className="bg-white/10 p-6 rounded-lg backdrop-blur-sm h-full">
-                <h3 className="font-playfair text-2xl font-bold mb-6">Contact Information</h3>
+                <h3 className="font-primary text-2xl font-bold mb-6">Contact Information</h3>
                 
                 <div className="space-y-6">
                   <div className="flex items-start">
@@ -269,7 +269,7 @@ const Contact = () => {
                       </svg>
                     </div>
                     <div>
-                      <h4 className="font-montserrat font-semibold mb-1">Office Address</h4>
+                      <h4 className="font-secondary font-semibold mb-1">Office Address</h4>
                       <p className="text-white/80">Nigerian Law School Complex, Victoria Island, Lagos, Nigeria</p>
                     </div>
                   </div>
@@ -281,7 +281,7 @@ const Contact = () => {
                       </svg>
                     </div>
                     <div>
-                      <h4 className="font-montserrat font-semibold mb-1">Phone Number</h4>
+                      <h4 className="font-secondary font-semibold mb-1">Phone Number</h4>
                       <p className="text-white/80">+234 704 444 4124</p>
                       {/* <p className="text-white/80">+234 (0) 9876 5432</p> */}
                     </div>
@@ -294,7 +294,7 @@ const Contact = () => {
                       </svg>
                     </div>
                     <div>
-                      <h4 className="font-montserrat font-semibold mb-1">Email Address</h4>
+                      <h4 className="font-secondary font-semibold mb-1">Email Address</h4>
                       <p className="text-white/80">bosanigeria@gmail.com</p>
                       {/* <p className="text-white/80">secretary@bosan.org.ng</p> */}
                     </div>
@@ -307,7 +307,7 @@ const Contact = () => {
                       </svg>
                     </div>
                     <div>
-                      <h4 className="font-montserrat font-semibold mb-1">Office Hours</h4>
+                      <h4 className="font-secondary font-semibold mb-1">Office Hours</h4>
                       <p className="text-white/80">Monday - Friday: 9:00 AM - 5:00 PM</p>
                       <p className="text-white/80">Saturday - Sunday: Closed</p>
                     </div>
@@ -315,7 +315,7 @@ const Contact = () => {
                 </div>
                 
                 <div className="mt-8">
-                  <h4 className="font-montserrat font-semibold mb-3">Follow Us</h4>
+                  <h4 className="font-secondary font-semibold mb-3">Follow Us</h4>
                   <div className="flex space-x-4">
                     {/* <motion.a 
                       href="https://twitter.com" 

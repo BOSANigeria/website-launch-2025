@@ -12,7 +12,7 @@ const announcements = [
   },
   {
     id: "2",
-    title: "Call for Papers: Legal Reform Symposium",
+    title: "Call for Papers: BOSAN Law Practice Journal",
     content:
       "BOSAN Law Practice Journal is currently been reviewed and would be published soo",
   },

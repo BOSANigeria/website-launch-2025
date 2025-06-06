@@ -1,38 +1,53 @@
-import { NextResponse } from "next/server";
-import dbConnect from "@/lib/mongodb";
-import User from "@/models/user.model";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+import { NextResponse } from 'next/server';
+import User from '@/lib/models/user.model'; // adjust path as needed
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import connectDB from '@/lib/mongodb'; // assuming you have this
 
 export async function POST(req) {
-  await dbConnect();
-  const { email, password } = await req.json();
+  try {
+    await connectDB();
+    const body = await req.json();
+    const { email, password } = body;
 
-  const user = await User.findOne({ email });
-  if (!user) {
-    return NextResponse.json({ message: "User not found" }, { status: 404 });
+    if (!email || !password) {
+      return NextResponse.json({ error: 'Email and password are required' }, { status: 400 });
+    }
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return NextResponse.json({ error: 'User not found' }, { status: 404 });
+    }
+
+    if (!user.password) {
+      return NextResponse.json({ error: 'User has no password set. Contact admin.' }, { status: 403 });
+    }
+
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if (!passwordMatch) {
+      return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
+    }
+
+    // Create JWT payload
+    const token = jwt.sign(
+      { userId: user._id, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+
+    const res = NextResponse.json({ message: 'Login successful' });
+    res.cookies.set('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 7 * 24 * 60 * 60,
+      path: '/',
+    });
+
+    return res;
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json({ error: 'Server error' }, { status: 500 });
   }
-
-  const isMatch = await bcrypt.compare(password, user.password || "");
-  if (!isMatch) {
-    return NextResponse.json({ message: "Invalid credentials" }, { status: 401 });
-  }
-
-  const token = jwt.sign(
-    { userId: user._id, email: user.email },
-    process.env.JWT_SECRET,
-    { expiresIn: "7d" }
-  );
-
-  // Use NextResponse to set cookie
-  const response = NextResponse.json({ message: "Login successful" });
-  response.cookies.set("token", token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    maxAge: 60 * 60 * 24 * 7, // 7 days
-    path: "/",
-  });
-
-  return response;
 }

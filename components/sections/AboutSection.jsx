@@ -204,9 +204,9 @@ const About = () => {
               className="group"
             >
               <div className="relative mb-6">
-                <h3 className="text-3xl font-bold text-black mb-2 relative inline-block">
+                <h1 className="text-3xl font-bold text-black mb-2 relative inline-block">
                   Membership
-                </h3>
+                </h1>
                 <motion.span 
                   className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-[#D4AF37] to-yellow-500"
                   initial={{ width: 0 }}

@@ -67,7 +67,7 @@ export default function Announcements() {
                     {announcement.title}
                   </h3>
                   <p className="text-black/80 leading-relaxed text-md">{announcement.content}</p>
-                  <div className="mt-3">
+                  {/* <div className="mt-3">
                     <Link
                       href={`/announcements/${announcement.id}`}
                       className="text-[#750E21] underline font-medium text-md inline-flex items-center hover:text-opacity-80 transition-colors"
@@ -85,7 +85,7 @@ export default function Announcements() {
                         />
                       </svg>
                     </Link>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </motion.div>

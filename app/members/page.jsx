@@ -54,7 +54,6 @@ export default function MembersPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/40">
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Enhanced Header */}
         <header className="mb-16 text-center relative">
           <div className="absolute inset-0 -z-10">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-blue-400/10 via-indigo-400/10 to-purple-400/10 rounded-full blur-3xl"></div>
@@ -70,7 +69,6 @@ export default function MembersPage() {
           </div>
         </header>
 
-        {/* Enhanced Filters */}
         <div className="mb-12">
           <div className="bg-white/80 backdrop-blur-sm border border-white/50 rounded-2xl p-6 shadow-xl shadow-blue-900/5">
             <div className="flex flex-col lg:flex-row gap-6 lg:items-center lg:justify-between">
@@ -103,7 +101,10 @@ export default function MembersPage() {
                   <SelectTrigger className="h-12 border-gray-200 focus:border-[#0F2C59] focus:ring-[#0F2C59] rounded-xl shadow-sm">
                     <SelectValue placeholder="All Years" />
                   </SelectTrigger>
-                  <SelectContent className="rounded-xl border-gray-200">
+                  <SelectContent
+                    className="bg-white shadow-lg rounded-xl border-gray-200 z-50"
+                    style={{ position: "absolute", top: "100%", left: 0 }}
+                  >
                     <SelectItem value="all" className="rounded-lg">All Years</SelectItem>
                     {getUniqueYears(membersData).map((y) => (
                       <SelectItem key={y} value={y.toString()} className="rounded-lg">
@@ -115,7 +116,6 @@ export default function MembersPage() {
               </div>
             </div>
 
-            {/* Results Summary */}
             <div className="mt-4 pt-4 border-t border-gray-100">
               <p className="text-sm text-gray-600">
                 Showing <span className="font-semibold text-[#0F2C59]">{filtered.length}</span> 
@@ -131,7 +131,6 @@ export default function MembersPage() {
           </div>
         </div>
 
-        {/* Results Section */}
         {filtered.length === 0 ? (
           <div className="text-center py-16">
             <div className="mx-auto w-24 h-24 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center mb-6">
@@ -155,15 +154,17 @@ export default function MembersPage() {
           </div>
         ) : (
           <>
-            {/* Members Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
               {currentItems.map((member, index) => (
                 <div
                   key={member.id}
-                  className="transform transition-all duration-300 hover:scale-105"
+                  className="member-card-container transform transition-all duration-300 hover:scale-105"
                   style={{
-                    animationDelay: `${index * 50}ms`,
-                    animation: 'fadeInUp 0.6s ease-out forwards'
+                    animationName: 'fadeInUp',
+                    animationDuration: '0.6s',
+                    animationTimingFunction: 'ease-out',
+                    animationFillMode: 'forwards',
+                    animationDelay: `${index * 50}ms`
                   }}
                 >
                   <MemberCard member={member} />
@@ -171,7 +172,6 @@ export default function MembersPage() {
               ))}
             </div>
 
-            {/* Enhanced Pagination */}
             {totalPages > 1 && (
               <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
                 <div className="flex items-center gap-2">

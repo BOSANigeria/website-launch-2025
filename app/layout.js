@@ -1,10 +1,5 @@
-"use client";
 import "./globals.css";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { usePathname } from "next/navigation";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-
+import ClientLayout from "../components/layout/ClientLayout";
 
 export const metadata = {
   title: "Body of Senior Advocates of Nigeria (BOSAN) | Membership, News & Events",
@@ -54,23 +49,12 @@ export const metadata = {
   },
   themeColor: "#4BADFD",
 };
-const queryClient = new QueryClient();
 
 export default function RootLayout({ children }) {
-  const pathname = usePathname();
-  
-  // Check if the current path is part of the member dashboard
-  const isDashboardRoute = pathname?.startsWith('/member-dashboard') || pathname?.startsWith('/super-admin');
-
   return (
     <html lang="en">
       <body className="min-h-screen flex flex-col">
-        <QueryClientProvider client={queryClient}>
-            {/* Only render Navbar and Footer for non-dashboard routes */}
-            {!isDashboardRoute && <Navbar />}
-            <main className={`${!isDashboardRoute ? 'flex-1' : ''}`}>{children}</main>
-            {!isDashboardRoute && <Footer />}
-        </QueryClientProvider>
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );

@@ -5,11 +5,17 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X, Lock, Home, Users, Calendar, BookOpen, Phone, Info } from "lucide-react";
+import { useAuth } from "../../hooks/useAuth";
+
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   const mobileMenuRef = useRef(null);
+
+  const { data: user, isLoading, isError } = useAuth();
+const isAuthenticated = !!user && !isError;
+
 
   const navLinks = [
     { title: "Home", path: "/", icon: Home },
@@ -100,13 +106,19 @@ const Navbar = () => {
                 </Link>
               );
             })}
+            {isLoading ? (
+              <div className="ml-4 text-sm text-gray-500 animate-pulse">Checking...</div>
+            ):(
+
             <Link
-              href="/login"
+              href={isAuthenticated ? "/member-dashboard" : "/login"}
               className="ml-4 inline-flex items-center px-4 py-4 text-lg font-medium text-white bg-black hover:bg-[#D4AF37] transition"
             >
               <Lock className="w-4 h-4 mr-2" />
-              Member Login
+              {isAuthenticated ? "Member Dashboard" : "Member Login"}
             </Link>
+            )}
+
           </nav>
 
           {/* Mobile Menu Button */}
@@ -214,14 +226,17 @@ const Navbar = () => {
 
             {/* Member Login Button - Fixed at bottom */}
             <div className="pt-4 border-t border-gray-200 flex-shrink-0">
-              <Link
-                href="/login"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-center space-x-2 w-full p-3 bg-black text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200"
-              >
-                <Lock className="w-4 h-4" />
-                <span>Member Login</span>
-              </Link>
+              {isLoading ? (<div className="ml-4 text-sm text-gray-500 animate-pulse">Checking...</div>): (
+                <Link
+                  href={isAuthenticated ? "/member-dashboard" : "/login"}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-center space-x-2 w-full p-3 bg-black text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200"
+                >
+                  <Lock className="w-4 h-4" />
+                  <span>{isAuthenticated ? "Member Dashboard" : "Member Login"}</span>
+                </Link>
+              )}
+
               
               {/* Footer */}
               <div className="mt-3 text-center text-gray-500 text-xs">

@@ -35,7 +35,7 @@ const AdminSidebar = ({ isMobile = false, isOpen = false, onClose }) => {
             href={link.href}
             onClick={isMobile ? onClose : undefined}
             className={`flex items-center px-3 py-2 rounded-md font-medium transition ${
-              pathname === link.href ? "bg-blue-100 text-blue-900" : " hover:bg-gray-100 hover:text-[#0F2C59]"
+              pathname === link.href ? "bg-black text-blue-900" : " hover:bg-gray-100 hover:text-[#0F2C59]"
             }`}
           >
             <span className="mr-3">{link.icon}</span>

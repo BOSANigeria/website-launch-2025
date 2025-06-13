@@ -1,7 +1,7 @@
 // utils/auth.js
 export const fetchUser = async () => {
     try {
-      const res = await fetch('/api/auth/check-auth', { cache: 'no-store' });
+      const res = await fetch('/api/auth/check-auth', { cache: 'no-store', credentials: 'include' });
       if (!res.ok) return null;
   
       const data = await res.json();

@@ -1,2 +1,2 @@
 # BOSANigeria
-## A nexjs powered applicatoon
+## A Nextjs powered applicatoon

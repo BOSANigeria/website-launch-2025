@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import User from '../../../../models/user.model'; // adjust path as needed
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import { SignJWT } from 'jose';
 import connectDB from '@/lib/mongodb'; // assuming you have this
 
 export async function POST(req) {
@@ -30,12 +30,16 @@ export async function POST(req) {
       return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
     }
 
-    // Create JWT payload
-    const token = jwt.sign(
-      { userId: user._id, role: user.role },
-      process.env.JWT_SECRET,
-      { expiresIn: '7d' }
-    );
+    // Create JWT using jose
+    const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+    const token = await new SignJWT({ 
+      userId: user._id.toString(), 
+      role: user.role 
+    })
+      .setProtectedHeader({ alg: 'HS256' })
+      .setExpirationTime('7d')
+      .setIssuedAt()
+      .sign(secret);
 
     const res = NextResponse.json({ message: 'Login successful' });
     res.cookies.set('token', token, {
@@ -43,6 +47,7 @@ export async function POST(req) {
       secure: process.env.NODE_ENV === 'production',
       maxAge: 7 * 24 * 60 * 60,
       path: '/',
+      sameSite: 'strict'
     });
 
     return res;

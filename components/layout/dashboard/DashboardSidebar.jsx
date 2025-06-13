@@ -3,6 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaTachometerAlt, FaSignOutAlt, FaChartLine, FaUsers, FaCog, FaFileAlt, FaTimes } from "react-icons/fa";
 import { GrTransaction } from "react-icons/gr";
+import { logout } from '@/utils/auth'
 
 // Navigation links with icons
 const links = [
@@ -17,10 +18,10 @@ const links = [
 const AdminSidebar = ({ isMobile = false, isOpen = false, onClose }) => {
   const pathname = usePathname();
 
-  const handleLogout = () => {
-    localStorage.removeItem('user'); // clear session
-    location.href = '/login';
-  };
+  // const handleLogout = () => {
+  //   localStorage.removeItem('user'); // clear session
+  //   location.href = '/login';
+  // };
 
   // Common navigation content
   const navigationContent = (
@@ -43,7 +44,7 @@ const AdminSidebar = ({ isMobile = false, isOpen = false, onClose }) => {
       
       <div className={`${isMobile ? 'absolute bottom-0 left-0 right-0' : ''} p-4 border-t`}>
         <button
-          onClick={handleLogout}
+          onClick={logout}
           className="flex items-center text-sm text-red-600 hover:underline"
         >
           <FaSignOutAlt className="mr-2" />

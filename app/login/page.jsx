@@ -38,15 +38,15 @@ const Login = () => {
 
       try {
         const res = await axios.post("/api/auth/login", values);
-        localStorage.setItem("isLoggedIn", "true");
+        // console.log(res)
+        // localStorage.setItem("isLoggedIn", "true");
 
         toast.success("Login successful! Redirecting...", {
           position: "top-center",
           autoClose: 1500,
         });
         setTimeout(() => {
-          router.push("/member-dashboard");
-          router.refresh();
+          window.location.href = "/member-dashboard";
         }, 1500);
       } catch (err) {
         const errorMessage =

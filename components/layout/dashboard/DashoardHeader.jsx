@@ -2,7 +2,7 @@
 import { FaUserCircle, FaBars, FaBell } from "react-icons/fa";
 import { getInitials } from "@/utils/getInitials";
 
-const AdminHeader = ({ onMenuToggle, title = "Dashboard", user }) => {
+const DashboardHeader = ({ onMenuToggle, title = "Dashboard", user }) => {
   const fullName = user?.fullName || "Admin";
   const initials = getInitials(fullName);
 
@@ -46,4 +46,4 @@ const AdminHeader = ({ onMenuToggle, title = "Dashboard", user }) => {
   );
 };
 
-export default AdminHeader;
+export default DashboardHeader;

@@ -1,39 +1,8 @@
-// in /member-dashboard/page.tsx or layout
-"use client"
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import axios from "axios";
-import { UserStats } from "@/components/member-dashboard/UserStats";
-import Transactions from "@/components/member-dashboard/Transactions";
-
-
-const Dashboard = () => {
-  const router = useRouter();
-
-  // useEffect(() => {
-  //   const checkAuth = async () => {
-  //     try {
-  //       const res = await axios.get("/api/auth/check-auth", {
-  //         withCredentials: true, // IMPORTANT
-  //       });
-  //       // user is authenticated
-  //       console.log(res.data.user);
-  //     } catch (err) {
-  //       router.push("/login"); // not authenticated
-  //     }
-  //   };
-
-  //   checkAuth();
-  // }, []);
-
+export default function MemberDashboardHome() {
   return (
     <div>
-      <div className="lg:p-3">
-        <UserStats />
-        <Transactions />
-      </div>
+      <h2 className="text-2xl font-semibold mb-4">Dashboard Overview</h2>
+      <p>This is your dashboard overview page.</p>
     </div>
-  )
-};
-
-export default Dashboard;
+  );
+}

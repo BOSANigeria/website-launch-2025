@@ -15,7 +15,7 @@ const links = [
 ];
 
 // Sidebar Component for both mobile and desktop
-const AdminSidebar = ({ isMobile = false, isOpen = false, onClose }) => {
+const DashboardSidebar = ({ isMobile = false, isOpen = false, onClose }) => {
   const pathname = usePathname();
 
   // const handleLogout = () => {
@@ -100,4 +100,4 @@ const AdminSidebar = ({ isMobile = false, isOpen = false, onClose }) => {
   );
 };
 
-export default AdminSidebar;
+export default DashboardSidebar;

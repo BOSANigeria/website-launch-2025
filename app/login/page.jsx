@@ -1,46 +1,39 @@
 "use client";
-import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
-import { FaLock, FaEnvelope, FaEye, FaEyeSlash } from "react-icons/fa";
+import {
+  FaLock,
+  FaEnvelope,
+  FaEye,
+  FaEyeSlash,
+} from "react-icons/fa";
 import "react-toastify/dist/ReactToastify.css";
-import Link from "next/link";
 
 const Login = () => {
-  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [authError, setAuthError] = useState("");
   const router = useRouter();
 
   useEffect(() => {
     axios.defaults.withCredentials = true;
   }, []);
 
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   const formik = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-    },
+    initialValues: { email: "", password: "" },
     validationSchema: Yup.object({
-      email: Yup.string()
-        .email("Invalid email address")
-        .required("Email is required"),
-      password: Yup.string()
-        .min(6, "Password must be at least 6 characters")
-        .required("Password is required"),
+      email: Yup.string().email("Invalid email").required("Required"),
+      password: Yup.string().min(6, "At least 6 characters").required("Required"),
     }),
     onSubmit: async (values) => {
-      setLoading(true);
-      setAuthError("");
-
       try {
         const res = await axios.post("/api/auth/login", values);
-        // console.log(res)
-        // localStorage.setItem("isLoggedIn", "true");
-
         toast.success("Login successful! Redirecting...", {
           position: "top-center",
           autoClose: 1500,
@@ -49,195 +42,164 @@ const Login = () => {
           window.location.href = "/member-dashboard";
         }, 1500);
       } catch (err) {
-        const errorMessage =
-          err.response?.data?.message ||
-          "Login failed. Please check your credentials.";
-        setAuthError(errorMessage);
-        toast.error(errorMessage, {
+        const message =
+          err.response?.data?.message || "Login failed. Please check your credentials.";
+        toast.error(message, {
           position: "top-center",
           autoClose: 4000,
         });
-      } finally {
-        setLoading(false);
       }
     },
   });
 
-  const togglePasswordVisibility = () => {
-    setShowPassword((prev) => !prev);
-  };
-
   return (
-    <div className="flex min-h-screen w-full">
+    <div className="min-h-screen relative overflow-hidden bg-white">
       <ToastContainer />
+      <div className="relative z-10 flex min-h-screen">
+        {/* Left Panel */}
+        <div className="hidden lg:flex w-1/2 flex-col justify-center items-center p-12 relative">
+          <div className="bg-white border-2 border-black rounded-3xl p-24 shadow-2xl">
+            <div className="text-center space-y-6">
+              <h2 className="text-5xl text-black leading-relaxed font-medium">
+                Welcome Back.
+              </h2>
+              <p className="text-xl text-gray-600 mt-8">
+                Need assistance? Reach out to{" "}
+                <span className="text-black underline font-semibold cursor-pointer">
+                  bosanigeria@gmail.com
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
 
-      {/* Left Panel */}
-      <div className="hidden lg:flex w-1/2 bg-black text-white flex-col justify-center items-center p-12">
-        <h1 className="text-4xl font-bold mb-4">Welcome Back</h1>
-        <p className="text-lg text-gray-200 mb-6">
-          Please log in to access your account and manage your profile.
-        </p>
-        <p className="text-sm text-gray-300">
-          Need help? Contact support@example.com
-        </p>
-      </div>
-
-      {/* Right Panel */}
-      <div className="flex flex-col justify-center items-center w-full lg:w-1/2 bg-white p-4 sm:p-6">
-        <div className="w-full max-w-md space-y-6">
-          <h2 className="text-3xl font-bold text-center text-black">
-            Member Login
-          </h2>
-
-          {authError && (
-            <div
-              className="p-3 bg-red-50 border border-red-200 text-red-700 rounded-md"
-              aria-live="polite"
+        {/* Right Panel */}
+        <div className="flex flex-col justify-center items-center w-full lg:w-1/2 p-8 relative">
+          <div className="w-full max-w-md relative">
+            <form
+              onSubmit={formik.handleSubmit}
+              className="-mt-12 bg-white border-2 border-black rounded-3xl p-8 shadow-2xl space-y-8 animate-fade-in"
+              noValidate
             >
-              {authError}
-            </div>
-          )}
-
-          <form onSubmit={formik.handleSubmit} className="space-y-5" noValidate>
-            {/* Email Field */}
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Email
-              </label>
-              <div className="mt-1 relative">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  aria-invalid={!!(formik.touched.email && formik.errors.email)}
-                  aria-describedby="email-error"
-                  className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 ${
-                    formik.touched.email && formik.errors.email
-                      ? "border-red-500 focus:ring-red-400"
-                      : "border-gray-300 focus:ring-blue-400"
-                  }`}
-                  {...formik.getFieldProps("email")}
-                />
-                <FaEnvelope className="absolute top-3 right-3 text-gray-400" />
+              <div className="text-center">
+                <h2 className="text-4xl font-bold text-black mb-2">
+                  Member Portal
+                </h2>
+                <p className="text-gray-600">Access your exclusive dashboard</p>
               </div>
-              {formik.touched.email && formik.errors.email && (
-                <p id="email-error" className="text-sm text-red-600 mt-1">
-                  {formik.errors.email}
-                </p>
-              )}
-            </div>
 
-            {/* Password Field */}
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Password
-              </label>
-              <div className="mt-1 relative">
-                <input
-                  id="password"
-                  name="password"
-                  type={showPassword ? "text" : "password"}
-                  autoComplete="current-password"
-                  aria-invalid={
-                    !!(formik.touched.password && formik.errors.password)
-                  }
-                  aria-describedby="password-error"
-                  className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 ${
-                    formik.touched.password && formik.errors.password
-                      ? "border-red-500 focus:ring-red-400"
-                      : "border-gray-300 focus:ring-blue-400"
-                  }`}
-                  {...formik.getFieldProps("password")}
-                />
+              {/* Email */}
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-black">
+                  Email Address
+                </label>
+                <div className="relative group">
+                  <input
+                    type="email"
+                    name="email"
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
+                    value={formik.values.email}
+                    className={`w-full px-4 py-4 bg-white border-2 rounded-xl text-black placeholder-gray-500 focus:outline-none ${
+                      formik.touched.email && formik.errors.email
+                        ? "border-black shadow-lg"
+                        : "border-gray-300 focus:border-black"
+                    }`}
+                    placeholder="Enter your email"
+                  />
+                  <FaEnvelope className="absolute top-5 right-4 text-gray-500 group-focus-within:text-black transition-colors" />
+                </div>
+                {formik.touched.email && formik.errors.email && (
+                  <p className="text-sm text-black animate-fade-in">{formik.errors.email}</p>
+                )}
+              </div>
+
+              {/* Password */}
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-black">
+                  Password
+                </label>
+                <div className="relative group">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
+                    value={formik.values.password}
+                    className={`w-full px-4 py-4 bg-white border-2 rounded-xl text-black placeholder-gray-500 focus:outline-none ${
+                      formik.touched.password && formik.errors.password
+                        ? "border-black shadow-lg"
+                        : "border-gray-300 focus:border-black"
+                    }`}
+                    placeholder="Enter your password"
+                  />
+                  <button
+                    type="button"
+                    onClick={togglePasswordVisibility}
+                    className="absolute top-5 right-4 text-gray-500 hover:text-black transition-colors"
+                  >
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  </button>
+                </div>
+                {formik.touched.password && formik.errors.password && (
+                  <p className="text-sm text-black animate-fade-in">{formik.errors.password}</p>
+                )}
+              </div>
+
+              {/* Forgot Password */}
+              <div className="flex justify-end">
                 <button
                   type="button"
-                  onClick={togglePasswordVisibility}
-                  className="absolute top-3 right-3 text-gray-400 hover:text-gray-600 focus:outline-none"
-                  tabIndex={-1}
+                  className="text-sm text-gray-600 hover:text-black hover:underline transition-all"
                 >
-                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  Forgot password?
                 </button>
               </div>
-              {formik.touched.password && formik.errors.password && (
-                <p id="password-error" className="text-sm text-red-600 mt-1">
-                  {formik.errors.password}
-                </p>
-              )}
-            </div>
 
-            {/* Forgot Password Link */}
-            <div className="flex justify-end">
-              <Link
-                href="/forgot-password"
-                className="text-sm text-black hover:text-blue-900 transition-colors"
-              >
-                Forgot password?
-              </Link>
-            </div>
-
-            {/* Submit Button */}
-            <div>
+              {/* Submit */}
               <button
                 type="submit"
-                disabled={loading || !formik.isValid}
-                className={`w-full ${
-                  loading || !formik.isValid
-                    ? "bg-black opacity-70 cursor-not-allowed"
-                    : "bg-black hover:bg-[#D4AF37]"
-                } text-white py-3 rounded-md transition-colors flex justify-center items-center`}
+                disabled={formik.isSubmitting || !formik.isValid}
+                className={`w-full py-4 font-semibold text-white rounded-xl transition-all duration-300 relative overflow-hidden group ${
+                  formik.isSubmitting || !formik.isValid
+                    ? "bg-gray-400 cursor-not-allowed opacity-50"
+                    : "bg-black hover:bg-gray-800 hover:scale-105 shadow-lg"
+                }`}
               >
-                {loading ? (
-                  <>
-                    <svg
-                      className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      ></circle>
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      ></path>
-                    </svg>
-                    Logging in...
-                  </>
-                ) : (
-                  "Login"
-                )}
+                <div className="flex items-center justify-center">
+                  {formik.isSubmitting ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2" />
+                      Logging in...
+                    </>
+                  ) : (
+                    <>
+                      <FaLock className="mr-2" />
+                      Access Dashboard
+                    </>
+                  )}
+                </div>
               </button>
-            </div>
-          </form>
-
-          {/* Signup Redirect */}
-          {/* <div className="text-center mt-4">
-            <p className="text-sm text-gray-600">
-              Don't have an account?{" "}
-              <Link
-                href="/signup"
-                className="text-blue-700 hover:text-blue-900 font-medium transition-colors"
-              >
-                Sign up
-              </Link>
-            </p>
-          </div> */}
+            </form>
+          </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .animate-fade-in {
+          animation: fade-in 0.5s ease-out;
+        }
+      `}</style>
     </div>
   );
 };

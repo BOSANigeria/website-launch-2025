@@ -1,4 +1,3 @@
-// middleware.ts
 import { NextResponse } from 'next/server'
 import { jwtVerify } from 'jose'
 
@@ -8,14 +7,17 @@ export async function middleware(req) {
 
   console.log('Middleware running for:', pathname, 'Token exists:', !!token)
 
+  // If no token exists, redirect protected routes to login
   if (!token) {
     if (pathname.startsWith('/member-dashboard')) {
       console.log('No token, redirecting to login')
       return NextResponse.redirect(new URL('/login', req.url))
     }
-    if (pathname.startsWith('/super-admin')) {
-      return NextResponse.redirect(new URL('/admin-login', req.url))
+    if (pathname.startsWith('/superadmin')) {
+      console.log('No token, redirecting to login')
+      return NextResponse.redirect(new URL('/login', req.url))
     }
+    // Allow access to login page and other public routes
     return NextResponse.next()
   }
 
@@ -24,31 +26,44 @@ export async function middleware(req) {
     const { payload } = await jwtVerify(token, secret)
     
     const isAdmin = payload?.role === 'admin'
-    const isUser = payload?.role === 'user' || !payload?.role //default role is user
+    const isUser = payload?.role === 'user' || !payload?.role // default role is user
 
-    // console.log('Token decoded:', { userId: payload.userId, role: payload.role })
+    console.log('Token decoded:', { userId: payload.userId, role: payload.role })
 
-    // If already logged in, redirect away from login pages
-    if (pathname === '/login' && isUser) {
-      console.log('User already logged in, redirecting to dashboard')
-      return NextResponse.redirect(new URL('/member-dashboard', req.url))
+    // If already logged in, redirect away from login page
+    if (pathname === '/login') {
+      if (isAdmin) {
+        console.log('Admin already logged in, redirecting to superadmin')
+        return NextResponse.redirect(new URL('/superadmin', req.url))
+      } else if (isUser) {
+        console.log('User already logged in, redirecting to dashboard')
+        return NextResponse.redirect(new URL('/member-dashboard', req.url))
+      }
     }
 
-    if (pathname === '/admin-login' && isAdmin) {
-      return NextResponse.redirect(new URL('/super-admin', req.url))
-    }
-
-    // Block access if not admin
-    if (pathname.startsWith('/admin') && !isAdmin) {
+    // Block non-admin access to superadmin routes
+    if (pathname.startsWith('/superadmin') && !isAdmin) {
+      console.log('Non-admin trying to access superadmin, redirecting to dashboard')
       return NextResponse.redirect(new URL('/member-dashboard', req.url))
     }
 
     return NextResponse.next()
   } catch (err) {
     console.error('JWT verification failed:', err.message)
-    // Invalid token - clear the invalid cookie
+    
+    // Invalid or expired token - clear it and redirect to login
     const response = NextResponse.redirect(new URL('/login', req.url))
+    
+    // Forcefully delete the invalid token
     response.cookies.delete('token')
+    response.cookies.set('token', '', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      path: '/',
+      expires: new Date(0),
+      maxAge: 0,
+      sameSite: 'strict',
+    })
     
     return response
   }
@@ -58,8 +73,7 @@ export async function middleware(req) {
 export const config = {
   matcher: [
     '/member-dashboard/:path*',
-    '/admin/:path*',
+    '/superadmin/:path*',
     '/login',
-    '/admin-login'
   ]
 }

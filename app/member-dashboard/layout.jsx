@@ -1,4 +1,3 @@
-
 'use client';
 import { useState } from 'react';
 import DashboardSidebar from '@/components/layout/dashboard/DashboardSidebar';
@@ -10,11 +9,13 @@ export default function MemberDashboardLayout({ children }) {
 
   return (
     <div className="min-h-screen flex overflow-hidden bg-gray-50 dark:bg-gray-950">
-      <DashboardSidebar 
-        isMobile={true} 
-        isOpen={sidebarOpen} 
-        onClose={toggleSidebar} 
-      />
+      {/* Desktop Sidebar */}
+      <DashboardSidebar isMobile={false} />
+
+      {/* Mobile Sidebar */}
+      <DashboardSidebar isMobile={true} isOpen={sidebarOpen} onClose={toggleSidebar} />
+
+      {/* Main Content Area */}
       <div className="flex-1 flex flex-col overflow-x-hidden">
         <DashboardHeader onMenuToggle={toggleSidebar} />
         <main className="p-4 w-full max-w-7xl mx-auto">{children}</main>

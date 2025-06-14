@@ -1,101 +1,209 @@
+// DashboardSidebar.js
 'use client';
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FaTachometerAlt, FaSignOutAlt, FaChartLine, FaUsers, FaCog, FaFileAlt, FaTimes } from "react-icons/fa";
+import { FaTachometerAlt, FaSignOutAlt, FaCog, FaTimes, FaUser, FaBell, FaChevronRight } from "react-icons/fa";
 import { GrTransaction } from "react-icons/gr";
-import { logout } from '@/utils/auth'
+import { useAuth } from "@/hooks/useAuth";
+import { getInitials } from "@/utils/getInitials";
+import { useEffect } from "react";
 
-// Navigation links with icons
 const links = [
   { label: "Overview", href: "/member-dashboard", icon: <FaTachometerAlt /> },
-  // { label: "Analytics", href: "/member-dashboard/analytics", icon: <FaChartLine /> },
   { label: "Transactions", href: "/member-dashboard/transactions", icon: <GrTransaction /> },
-  // { label: "Reports", href: "/member-dashboard/reports", icon: <FaFileAlt /> },
   { label: "Settings", href: "/member-dashboard/settings", icon: <FaCog /> },
 ];
 
-// Sidebar Component for both mobile and desktop
 const DashboardSidebar = ({ isMobile = false, isOpen = false, onClose }) => {
   const pathname = usePathname();
+  const { user, logout } = useAuth();
+  
+  const fullName = user?.fullName || "User";
+  const email = user?.email || "user@example.com";
+  const initials = getInitials(fullName, email);
 
-  // const handleLogout = () => {
-  //   localStorage.removeItem('user'); // clear session
-  //   location.href = '/login';
-  // };
+  // Close sidebar on route change for mobile only
+  useEffect(() => {
+    if (isMobile && isOpen && onClose) {
+      const timer = setTimeout(() => {
+        onClose();
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [pathname]);
 
-  // Common navigation content
-  const navigationContent = (
-    <>
-      <nav className="flex-1 px-4 py-6 space-y-2">
-        {links.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            onClick={isMobile ? onClose : undefined}
-            className={`flex items-center px-3 py-2 rounded-md font-medium transition ${
-              pathname === link.href ? "bg-blue-100 text-blue-900" : " hover:bg-gray-100 hover:text-[#0F2C59]"
-            }`}
-          >
-            <span className="mr-3">{link.icon}</span>
-            {link.label}
-          </Link>
-        ))}
-      </nav>
-      
-      <div className={`${isMobile ? 'absolute bottom-0 left-0 right-0' : ''} p-4 border-t`}>
-        <button
-          onClick={logout}
-          className="flex items-center text-sm text-red-600 hover:underline"
+  // Prevent body scroll when mobile sidebar is open
+  useEffect(() => {
+    if (isMobile && isOpen) {
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = 'unset';
+      };
+    }
+  }, [isMobile, isOpen]);
+
+  const handleLinkClick = () => {
+    if (isMobile && onClose) {
+      onClose();
+    }
+  };
+
+  const handleLogout = () => {
+    if (isMobile && onClose) {
+      onClose();
+    }
+    logout();
+  };
+
+  const NavigationLinks = () => (
+    <nav className="flex-1 px-4 py-6 space-y-2">
+      {links.map(link => (
+        <Link
+          key={link.href}
+          href={link.href}
+          onClick={handleLinkClick}
+          className={`flex items-center justify-between px-4 py-4 rounded-lg font-medium transition-all duration-200 ${
+            pathname === link.href
+              ? "bg-white text-black shadow-lg"
+              : "hover:bg-[#D4AF37]/20 hover:text-[#D4AF37] text-white"
+          }`}
         >
-          <FaSignOutAlt className="mr-2" />
-          Logout
-        </button>
-      </div>
-    </>
+          <div className="flex items-center">
+            <span className="mr-4 text-xl">{link.icon}</span>
+            <span className="text-base">{link.label}</span>
+          </div>
+          {pathname === link.href && <FaChevronRight className="text-sm" />}
+        </Link>
+      ))}
+    </nav>
   );
 
-  // Mobile sidebar
+  const QuickActions = () => (
+    <div className="space-y-2">
+      <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Quick Actions</h3>
+      <button className="flex items-center w-full px-4 py-3 rounded-lg text-white hover:bg-white/10 transition-all duration-200">
+        <FaUser className="mr-3 text-lg" />
+        <span>View Profile</span>
+      </button>
+      <button className="flex items-center w-full px-4 py-3 rounded-lg text-white hover:bg-white/10 transition-all duration-200">
+        <FaBell className="mr-3 text-lg" />
+        <span>Notifications</span>
+      </button>
+    </div>
+  );
+
+  const LogoutButton = () => (
+    <button
+      onClick={handleLogout}
+      className="flex items-center w-full px-4 py-3 rounded-lg text-red-300 hover:text-red-500 hover:bg-red-500/10 transition-all duration-200"
+    >
+      <FaSignOutAlt className="mr-3 text-lg" />
+      <span className="text-base font-medium">Logout</span>
+    </button>
+  );
+
   if (isMobile) {
     return (
       <>
-        {/* Mobile sidebar backdrop */}
+        {/* Backdrop */}
         {isOpen && (
           <div 
-            className="fixed inset-0 bg-gray-800 bg-opacity-50 z-20 md:hidden"
+            className="fixed inset-0 bg-black/60 z-40 backdrop-blur-sm md:hidden" 
             onClick={onClose}
+            aria-hidden="true"
           />
         )}
         
-        {/* Mobile Sidebar */}
-        <div 
-          id="sidebar"
+        {/* Mobile Drawer */}
+        <div
           className={`fixed inset-y-0 left-0 transform ${
             isOpen ? 'translate-x-0' : '-translate-x-full'
-          } md:hidden transition duration-200 ease-in-out z-30 w-64 bg-white shadow-lg flex flex-col`}
+          } md:hidden transition-transform duration-300 ease-in-out z-50 w-80 max-w-[85vw] bg-black text-white flex flex-col shadow-2xl`}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Navigation menu"
         >
-          <div className="h-16 flex items-center justify-between px-4 border-b">
-            <span className="font-bold text-lg">Member Area</span>
-            <button 
-              onClick={onClose}
-              className="p-1 rounded-md hover:bg-gray-100"
-            >
-              <FaTimes className="text-black" />
-            </button>
+          {/* Mobile Header */}
+          <div className="bg-black px-6 py-6 border-b border-white/20 shrink-0">
+            <div className="flex items-center justify-between mb-4">
+              <h1 className="font-bold text-xl text-white">Member Area</h1>
+              <button 
+                onClick={onClose} 
+                className="p-2 rounded-full hover:bg-white/10 transition-colors duration-200"
+                aria-label="Close navigation menu"
+              >
+                <FaTimes className="text-white text-xl" />
+              </button>
+            </div>
+            
+            {/* User Profile Section */}
+            <div className="flex items-center space-x-4">
+              <div className="w-16 h-16 bg-gradient-to-r from-[#D4AF37] to-yellow-500 rounded-full flex items-center justify-center shadow-lg shrink-0">
+                {user?.avatarUrl ? (
+                  <img src={user.avatarUrl} alt="User avatar" className="w-16 h-16 rounded-full object-cover" />
+                ) : (
+                  <span className="text-black font-bold text-xl">{initials}</span>
+                )}
+              </div>
+              <div className="flex-1 min-w-0">
+                <h2 className="text-lg font-semibold text-white truncate">{fullName}</h2>
+                <p className="text-sm text-gray-300 truncate">{email}</p>
+                {/* <div className="flex items-center mt-1">
+                  <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+                  <span className="text-xs text-green-400">Online</span>
+                </div> */}
+              </div>
+            </div>
+            
+            {/* Account Status */}
+            {/* <div className="mt-4 p-3 bg-white/5 rounded-lg border border-white/10">
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-gray-300">Account Status</span>
+                <span className="text-sm font-medium text-green-400">Active</span>
+              </div>
+            </div> */}
           </div>
           
-          {navigationContent}
+          {/* Navigation Content */}
+          <NavigationLinks />
+          
+            <LogoutButton />
+          
         </div>
       </>
     );
   }
 
-  // Desktop sidebar
+  // Desktop Sidebar
   return (
-    <aside className="w-64 hidden md:flex flex-col bg-[#0F2C59] text-white border-r shadow-sm">
-      <div className="h-16 flex items-center justify-center border-b font-bold text-lg">
-        Member Area
+    <aside className="w-64 hidden md:flex flex-col bg-black text-white border-r border-white/10 shadow-lg">
+      {/* Desktop Header */}
+      <div className="h-16 flex items-center justify-center border-b border-white/10 bg-gradient-to-r from-black to-gray-900 shrink-0">
+        <h1 className="font-bold text-lg text-white">Member Area</h1>
       </div>
-      {navigationContent}
+      
+      {/* Desktop Navigation */}
+      <nav className="flex-1 px-4 py-6 space-y-2">
+        {links.map(link => (
+          <Link
+            key={link.href}
+            href={link.href}
+            className={`flex items-center px-4 py-3 rounded-lg font-medium transition-all duration-200 ${
+              pathname === link.href
+                ? "bg-white text-black shadow-lg"
+                : "hover:bg-[#D4AF37]/20 hover:text-[#D4AF37] text-white"
+            }`}
+          >
+            <span className="mr-3 text-lg">{link.icon}</span>
+            <span>{link.label}</span>
+          </Link>
+        ))}
+      </nav>
+      
+      {/* Desktop Footer */}
+      <div className="mt-auto p-4 border-t border-white/20 shrink-0">
+        <LogoutButton />
+      </div>
     </aside>
   );
 };

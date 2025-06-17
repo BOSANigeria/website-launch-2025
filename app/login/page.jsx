@@ -41,13 +41,19 @@ const Login = () => {
         console.log(res)
         // localStorage.setItem("isLoggedIn", "true");
 
+        const { role } = res.data
+
         toast.success("Login successful! Redirecting...", {
           position: "top-center",
           autoClose: 1500,
         });
-        setTimeout(() => {
-          window.location.href = "/member-dashboard";
-        }, 1500);
+        if (role == 'admin') {
+          router.push('/super-admin')
+        } else {
+          setTimeout(() => {
+            window.location.href = "/member-dashboard";
+          }, 1500);
+        }
       } catch (err) {
         const errorMessage =
           err.response?.data?.message ||

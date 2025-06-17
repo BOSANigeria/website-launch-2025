@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import User from '../../../../models/user.model'; // adjust path as needed
 import bcrypt from 'bcryptjs';
 import { SignJWT } from 'jose';
-import connectDB from '@/lib/mongodb'; // assuming you have this
+import { connectDB } from '@/lib/mongodb'; // assuming you have this
 
 export async function POST(req) {
   try {

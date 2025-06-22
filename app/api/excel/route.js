@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
-import dbConnect from "@/lib/mongodb";
+import connectDB from "@/lib/mongodb";
 import Transaction from "@/models/Transaction";
 import mongoose from "mongoose";
 
 export async function GET(req) {
   try {
-    await dbConnect();
+    await connectDB();
     
     // Get query parameters
     const url = new URL(req.url);

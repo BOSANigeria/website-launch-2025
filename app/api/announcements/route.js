@@ -1,14 +1,21 @@
-import dbConnect from "@/lib/mongodb";
+import dbConnect from "@/lib/mongoose";
 import Announcement from "@/models/Announcement";
 
 export async function GET() {
   await dbConnect();
 
   try {
+    
+    // Get total announcements count
+    const totalAnnouncements = await Announcement.countDocuments({});
+
     const announcements = await Announcement.find({});
+
     return new Response(JSON.stringify({ 
         success: true, 
-        data: announcements }), { 
+        data: announcements,
+        total: totalAnnouncements
+       }), { 
       status: 200 
     });
   } catch (error) {

@@ -184,10 +184,10 @@ const Transactions = () => {
                 <RefreshCw className="w-4 h-4 mr-2" />
                 Refresh
               </button>
-              {/* <button className="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+              <button className="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
                 <Download className="w-4 h-4 mr-2" />
                 Export
-              </button> */}
+              </button>
             </div>
           </div>
         </div>

@@ -5,16 +5,16 @@ export async function middleware(req) {
   const token = req.cookies.get('token')?.value
   const { pathname } = req.nextUrl
 
-  console.log('Middleware running for:', pathname, 'Token exists:', !!token)
+  // console.log('Middleware running for:', pathname, 'Token exists:', !!token)
 
   // If no token exists, redirect protected routes to login
   if (!token) {
     if (pathname.startsWith('/member-dashboard')) {
-      console.log('No token, redirecting to login')
+      // console.log('No token, redirecting to login')
       return NextResponse.redirect(new URL('/login', req.url))
     }
     if (pathname.startsWith('/super-admin')) {
-      console.log('No token, redirecting to login')
+      // console.log('No token, redirecting to login')
       return NextResponse.redirect(new URL('/login', req.url))
     }
     // Allow access to login page and other public routes
@@ -28,22 +28,22 @@ export async function middleware(req) {
     const isAdmin = payload?.role === 'admin'
     const isUser = payload?.role === 'user' || !payload?.role // default role is user
 
-    console.log('Token decoded:', { userId: payload.userId, role: payload.role })
+    // console.log('Token decoded:', { userId: payload.userId, role: payload.role })
 
     // If already logged in, redirect away from login page
     if (pathname === '/login') {
       if (isAdmin) {
-        console.log('Admin already logged in, redirecting to superadmin')
+        // console.log('Admin already logged in, redirecting to superadmin')
         return NextResponse.redirect(new URL('/super-admin', req.url))
       } else if (isUser) {
-        console.log('User already logged in, redirecting to dashboard')
+        // console.log('User already logged in, redirecting to dashboard')
         return NextResponse.redirect(new URL('/member-dashboard', req.url))
       }
     }
 
     // Block non-admin access to superadmin routes
     if (pathname.startsWith('/super-admin') && !isAdmin) {
-      console.log('Non-admin trying to access superadmin, redirecting to dashboard')
+      // console.log('Non-admin trying to access superadmin, redirecting to dashboard')
       return NextResponse.redirect(new URL('/member-dashboard', req.url))
     }
 

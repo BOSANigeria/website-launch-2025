@@ -11,17 +11,26 @@ const links = [
   // { label: "Analytics", href: "/member-dashboard/analytics", icon: <FaChartLine /> },
   { label: "Transactions", href: "/member-dashboard/transactions", icon: <GrTransaction /> },
   // { label: "Reports", href: "/member-dashboard/reports", icon: <FaFileAlt /> },
-  { label: "Settings", href: "/member-dashboard/settings", icon: <FaCog /> },
+  // { label: "Settings", href: "/member-dashboard/settings", icon: <FaCog /> },
 ];
+
 
 // Sidebar Component for both mobile and desktop
 const AdminSidebar = ({ isMobile = false, isOpen = false, onClose }) => {
   const pathname = usePathname();
 
-  // const handleLogout = () => {
-  //   localStorage.removeItem('user'); // clear session
-  //   location.href = '/login';
-  // };
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      console.error('Error during logout:', error);
+      // Fallback: clear storage and redirect anyway
+      localStorage.clear();
+      sessionStorage.clear();
+      window.location.href = '/login';
+    }
+  };
+
 
   // Common navigation content
   const navigationContent = (
@@ -44,7 +53,7 @@ const AdminSidebar = ({ isMobile = false, isOpen = false, onClose }) => {
       
       <div className={`${isMobile ? 'absolute bottom-0 left-0 right-0' : ''} p-4 border-t`}>
         <button
-          onClick={logout}
+          onClick={handleLogout}
           className="flex items-center text-sm text-red-600 hover:underline"
         >
           <FaSignOutAlt className="mr-2" />

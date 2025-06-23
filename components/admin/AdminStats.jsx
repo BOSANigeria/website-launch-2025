@@ -120,14 +120,14 @@ const AdminStats = () => {
             </div>
             <div className="p-6 pt-0">
               <div className="text-2xl font-bold">{stat.value}</div>
-              <p className="text-xs text-muted-foreground">
+              {/* <p className="text-xs text-muted-foreground">
                 {stat.trend === "up" ? (
                   <TrendingUp className="h-4 w-4 inline mr-1" />
                 ) : (
                   <Activity className="h-4 w-4 inline mr-1" />
                 )}
                 {stat.change}
-              </p>
+              </p> */}
             </div>
           </div>
         ))}

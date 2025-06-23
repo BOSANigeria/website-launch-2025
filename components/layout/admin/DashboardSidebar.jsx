@@ -5,6 +5,7 @@ import { FaTachometerAlt, FaSignOutAlt, FaChartLine, FaUsers, FaCog, FaFileAlt, 
 import { GrTransaction } from "react-icons/gr";
 import { TfiAnnouncement } from "react-icons/tfi";
 import { MdEmojiEvents } from "react-icons/md";
+import { logout } from '@/utils/auth';
 
 // Navigation links with icons
 const links = [
@@ -16,13 +17,21 @@ const links = [
   // { label: "Settings", href: "/superadmin/settings", icon: <FaCog /> },
 ];
 
+
 // Sidebar Component for both mobile and desktop
 const AdminSidebar = ({ isMobile = false, isOpen = false, onClose }) => {
   const pathname = usePathname();
 
-  const handleLogout = () => {
-    localStorage.removeItem('user'); // clear session
-    location.href = '/login';
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      console.error('Error during logout:', error);
+      // Fallback: clear storage and redirect anyway
+      localStorage.clear();
+      sessionStorage.clear();
+      window.location.href = '/login';
+    }
   };
 
   // Common navigation content

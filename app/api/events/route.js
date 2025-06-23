@@ -5,7 +5,7 @@ export async function GET() {
   await dbConnect();
 
   try {
-    const totalEvents = await Event.find({});
+    const totalEvents = await Event.countDocuments({});
 
     const events = await Event.find({});
 

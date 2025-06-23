@@ -14,7 +14,7 @@ const Navbar = () => {
   const mobileMenuRef = useRef(null);
 
   const { data: user, isLoading, isError } = useAuth();
-const isAuthenticated = !!user && !isError;
+  const isAuthenticated = !user && !isError;
 
 
   const navLinks = [

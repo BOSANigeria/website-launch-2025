@@ -53,6 +53,7 @@ const DashboardSidebar = ({ isMobile = false, isOpen = false, onClose }) => {
       onClose();
     }
     logout();
+    window.location.href = "/login"; // Redirect to home after logout
   };
 
   const NavigationLinks = () => (
@@ -201,7 +202,7 @@ const DashboardSidebar = ({ isMobile = false, isOpen = false, onClose }) => {
       </nav>
       
       {/* Desktop Footer */}
-      <div className="mt-auto p-4 border-t border-white/20 shrink-0">
+      <div className="p-4 border-t border-white/20 shrink-0">
         <LogoutButton />
       </div>
     </aside>

@@ -11,96 +11,49 @@ import { useEffect } from "react";
 const links = [
   { label: "Overview", href: "/member-dashboard", icon: <FaTachometerAlt /> },
   { label: "Transactions", href: "/member-dashboard/transactions", icon: <GrTransaction /> },
+  // { label: "Reports", href: "/member-dashboard/reports", icon: <FaFileAlt /> },
   { label: "Settings", href: "/member-dashboard/settings", icon: <FaCog /> },
 ];
 
+
+
 const DashboardSidebar = ({ isMobile = false, isOpen = false, onClose }) => {
   const pathname = usePathname();
-  const { user, logout } = useAuth();
-  
-  const fullName = user?.fullName || "User";
-  const email = user?.email || "user@example.com";
-  const initials = getInitials(fullName, email);
 
-  // Close sidebar on route change for mobile only
-  useEffect(() => {
-    if (isMobile && isOpen && onClose) {
-      const timer = setTimeout(() => {
-        onClose();
-      }, 100);
-      return () => clearTimeout(timer);
-    }
-  }, [pathname]);
+  // const handleLogout = () => {
+  //   localStorage.removeItem('user'); // clear session
+  //   location.href = '/login';
+  // };
 
-  // Prevent body scroll when mobile sidebar is open
-  useEffect(() => {
-    if (isMobile && isOpen) {
-      document.body.style.overflow = 'hidden';
-      return () => {
-        document.body.style.overflow = 'unset';
-      };
-    }
-  }, [isMobile, isOpen]);
-
-  const handleLinkClick = () => {
-    if (isMobile && onClose) {
-      onClose();
-    }
-  };
-
-  const handleLogout = () => {
-    if (isMobile && onClose) {
-      onClose();
-    }
-    logout();
-    window.location.href = "/login"; // Redirect to home after logout
-  };
-
-  const NavigationLinks = () => (
-    <nav className="flex-1 px-4 py-6 space-y-2">
-      {links.map(link => (
-        <Link
-          key={link.href}
-          href={link.href}
-          onClick={handleLinkClick}
-          className={`flex items-center justify-between px-4 py-4 rounded-lg font-medium transition-all duration-200 ${
-            pathname === link.href
-              ? "bg-white text-black shadow-lg"
-              : "hover:bg-[#D4AF37]/20 hover:text-[#D4AF37] text-white"
-          }`}
+  // Common navigation content
+  const navigationContent = (
+    <>
+      <nav className="flex-1 px-4 py-6 space-y-2">
+        {links.map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            onClick={isMobile ? onClose : undefined}
+            className={`flex items-center px-3 py-2 rounded-md font-medium transition ${
+              pathname === link.href ? "bg-blue-100 text-blue-900" : " hover:bg-gray-100 hover:text-[#0F2C59]"
+            }`}
+          >
+            <span className="mr-3">{link.icon}</span>
+            {link.label}
+          </Link>
+        ))}
+      </nav>
+      
+      <div className={`${isMobile ? 'absolute bottom-0 left-0 right-0' : ''} p-4 border-t`}>
+        <button
+          onClick={logout}
+          className="flex items-center text-sm text-red-600 hover:underline"
         >
-          <div className="flex items-center">
-            <span className="mr-4 text-xl">{link.icon}</span>
-            <span className="text-base">{link.label}</span>
-          </div>
-          {pathname === link.href && <FaChevronRight className="text-sm" />}
-        </Link>
-      ))}
-    </nav>
-  );
-
-  const QuickActions = () => (
-    <div className="space-y-2">
-      <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Quick Actions</h3>
-      <button className="flex items-center w-full px-4 py-3 rounded-lg text-white hover:bg-white/10 transition-all duration-200">
-        <FaUser className="mr-3 text-lg" />
-        <span>View Profile</span>
-      </button>
-      <button className="flex items-center w-full px-4 py-3 rounded-lg text-white hover:bg-white/10 transition-all duration-200">
-        <FaBell className="mr-3 text-lg" />
-        <span>Notifications</span>
-      </button>
-    </div>
-  );
-
-  const LogoutButton = () => (
-    <button
-      onClick={handleLogout}
-      className="flex items-center w-full px-4 py-3 rounded-lg text-red-300 hover:text-red-500 hover:bg-red-500/10 transition-all duration-200"
-    >
-      <FaSignOutAlt className="mr-3 text-lg" />
-      <span className="text-base font-medium">Logout</span>
-    </button>
+          <FaSignOutAlt className="mr-2" />
+          Logout
+        </button>
+      </div>
+    </>
   );
 
   if (isMobile) {

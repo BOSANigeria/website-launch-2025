@@ -1,43 +1,59 @@
-import dbConnect from "@/lib/mongodb";
+import dbConnect from "@/lib/mongoose";
 import Event from "@/models/Event";
 
-export async function GET() {
+export async function GET(req, { params }) {
   await dbConnect();
 
   try {
-    const events = await Event.find({});
-    return new Response(JSON.stringify({ success: true, data: events }), { 
-      status: 200 
-    });
+    const event = await Event.findById(params.id);
+    if (!event) {
+      return new Response(JSON.stringify({ success: false, message: "Event not found" }), { status: 404 });
+    }
+
+    return new Response(JSON.stringify({ success: true, data: event }), { status: 200 });
   } catch (error) {
     return new Response(JSON.stringify({ success: false, message: error.message }), { status: 500 });
   }
 }
 
-export async function POST(req) {
+export async function PUT(req, { params }) {
   await dbConnect();
 
   try {
+    const { id } = await params
+
     const body = await req.json();
     const { title, date, time, location, status, description, image } = body;
 
-    if (!title || !date || !time || !location || !status || !description) {
-      return new Response(JSON.stringify({ success: false, message: "Missing required fields" }), { status: 400 });
+    const updatedEvent = await Event.findByIdAndUpdate(
+      id,
+      { title, date, time, location, status, description, image },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedEvent) {
+      return new Response(JSON.stringify({ success: false, message: "Event not found" }), { status: 404 });
     }
 
-    const event = new Event({ 
-      title, 
-      date, 
-      time, 
-      location, 
-      status, 
-      description: description.trim(), 
-      image: image || null, 
-    });
+    return new Response(JSON.stringify({ success: true, data: updatedEvent }), { status: 200 });
+  } catch (error) {
+    return new Response(JSON.stringify({ success: false, message: error.message }), { status: 500 });
+  }
+}
 
-    await event.save();
+export async function DELETE(req, { params }) {
+  await dbConnect();
 
-    return new Response(JSON.stringify({ success: true, data: event }), { status: 201 });
+  try {
+    const { id } = await params
+
+    const deletedEvent = await Event.findByIdAndDelete(id);
+
+    if (!deletedEvent) {
+      return new Response(JSON.stringify({ success: false, message: "Event not found" }), { status: 404 });
+    }
+
+    return new Response(JSON.stringify({ success: true, data: deletedEvent }), { status: 200 });
   } catch (error) {
     return new Response(JSON.stringify({ success: false, message: error.message }), { status: 500 });
   }

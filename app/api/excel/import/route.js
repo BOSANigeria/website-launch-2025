@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import * as xlsx from "xlsx";
 import Transaction from "@/models/Transaction";
 import User from "@/models/user.model"
-import dbConnect from "@/lib/mongodb";
+import connectDB from "@/lib/mongodb";
 import mongoose from "mongoose";
 
 // For debugging purposes - log request details
@@ -17,7 +17,7 @@ export async function POST(req) {
     logRequestDetails(req);
     
     // Ensure the database is connected
-    await dbConnect();
+    await connectDB();
 
     // Get the form data from the request
     const formData = await req.formData();

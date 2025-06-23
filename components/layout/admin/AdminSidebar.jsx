@@ -5,24 +5,33 @@ import { FaTachometerAlt, FaSignOutAlt, FaChartLine, FaUsers, FaCog, FaFileAlt, 
 import { GrTransaction } from "react-icons/gr";
 import { TfiAnnouncement } from "react-icons/tfi";
 import { MdEmojiEvents } from "react-icons/md";
+import { logout } from '@/utils/auth';
 
 // Navigation links with icons
 const links = [
-  { label: "Overview", href: "/superadmin", icon: <FaTachometerAlt /> },
-  { label: "Announcement", href: "/superadmin/announcement", icon: <TfiAnnouncement /> },
-  { label: "Events", href: "/superadmin/events", icon: <MdEmojiEvents /> },
-  { label: "Users", href: "/superadmin/users", icon: <FaUsers /> },
-  { label: "Transactions", href: "/superadmin/transactions", icon: <GrTransaction /> },
+  { label: "Overview", href: "/super-admin", icon: <FaTachometerAlt /> },
+  { label: "Announcement", href: "/super-admin/announcement", icon: <TfiAnnouncement /> },
+  { label: "Events", href: "/super-admin/events", icon: <MdEmojiEvents /> },
+  { label: "Users", href: "/super-admin/users", icon: <FaUsers /> },
+  { label: "Transactions", href: "/super-admin/transactions", icon: <GrTransaction /> },
   // { label: "Settings", href: "/superadmin/settings", icon: <FaCog /> },
 ];
+
 
 // Sidebar Component for both mobile and desktop
 const AdminSidebar = ({ isMobile = false, isOpen = false, onClose }) => {
   const pathname = usePathname();
 
-  const handleLogout = () => {
-    localStorage.removeItem('user'); // clear session
-    location.href = '/login';
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      console.error('Error during logout:', error);
+      // Fallback: clear storage and redirect anyway
+      localStorage.clear();
+      sessionStorage.clear();
+      window.location.href = '/login';
+    }
   };
 
   // Common navigation content
@@ -35,7 +44,7 @@ const AdminSidebar = ({ isMobile = false, isOpen = false, onClose }) => {
             href={link.href}
             onClick={isMobile ? onClose : undefined}
             className={`flex items-center px-3 py-2 rounded-md font-medium transition ${
-              pathname === link.href ? "bg-black text-blue-900" : " hover:bg-gray-100 hover:text-[#0F2C59]"
+              pathname === link.href ? "bg-white text-blue-900" : " hover:bg-gray-100 hover:text-[#0F2C59]"
             }`}
           >
             <span className="mr-3">{link.icon}</span>

@@ -1,11 +1,12 @@
 "use client"
 import { useState } from "react";
 import { apiRequest } from "@/lib/queryClient";
-import { useToast } from "@/hooks/use-toast";
+// import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
+import { ToastContainer, toast } from "react-toastify";
 
 const Contact = () => {
-  const { toast } = useToast();
+  // const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -29,7 +30,6 @@ const Contact = () => {
       message: ""
     };
     
-    // Simple validation rules
     if (!formData.name.trim()) {
       newErrors.name = "Name is required";
       isValid = false;
@@ -66,6 +66,14 @@ const Contact = () => {
       ...prev,
       [name]: value
     }));
+    
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ""
+      }));
+    }
   };
 
   const onSubmit = async (e) => {
@@ -77,12 +85,13 @@ const Contact = () => {
     
     try {
       setIsSubmitting(true);
-      await apiRequest("POST", "/api/contact", formData);
       
-      toast({
-        title: "Message sent successfully",
-        description: "Thank you for your message. We will get back to you soon.",
-      });
+      const response = await apiRequest("POST", "/api/contact", formData);
+      
+      toast.success("Message sent successfully! Thank you for your message. We will get back to you soon.",
+        {
+          position: "top-center"
+        });
       
       // Reset form
       setFormData({
@@ -91,10 +100,13 @@ const Contact = () => {
         subject: "",
         message: ""
       });
+      
     } catch (error) {
+      console.error('Contact form error:', error);
+      
       toast({
         title: "Failed to send message",
-        description: error instanceof Error ? error.message : "Please try again later",
+        description: error.message || "Please try again later",
         variant: "destructive",
       });
     } finally {
@@ -134,7 +146,6 @@ const Contact = () => {
             className="rounded-lg overflow-hidden shadow-lg"
           >
             <div className="aspect-w-16 aspect-h-9 w-full h-96 relative">
-              {/* We'll use an iframe to embed Google Maps */}
               <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.7537219455187!2d3.4193300751901594!3d6.423756934667084!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf53aec8c3e13%3A0xc96e9df38b6ef9ef!2sNigerian%20Law%20School%2C%20Lagos%20Campus!5e0!3m2!1sen!2sng!4v1681747537951!5m2!1sen!2sng" 
                 width="100%" 
@@ -150,7 +161,7 @@ const Contact = () => {
             <div className="bg-black text-white p-4">
               <div className="flex items-center">
                 <div className="bg-[#D4AF37]/20 rounded-full p-2 mr-3">
-                  <svg className="w-5 h-5 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <svg className="w-5 h-5 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
@@ -164,6 +175,7 @@ const Contact = () => {
 
       {/* Contact Form Section */}
       <section id="contact" className="py-16 bg-black text-white">
+        <ToastContainer />
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             className="text-center mb-12"
@@ -174,7 +186,9 @@ const Contact = () => {
           >
             <h2 className="font-primary font-bold text-3xl md:text-4xl mb-4">Get In Touch</h2>
             <div className="h-1 w-20 bg-[#D4AF37] mx-auto"></div>
-            <p className=" font-secondary text-white/80 mt-6 max-w-2xl mx-auto">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+            <p className="font-secondary text-white/80 mt-6 max-w-2xl mx-auto">
+              We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+            </p>
           </motion.div>
           
           <div className="grid md:grid-cols-2 gap-12">
@@ -189,50 +203,57 @@ const Contact = () => {
                 
                 <form onSubmit={onSubmit} className="space-y-4">
                   <div className="form-item">
-                    <label className="text-sm font-medium">Full Name</label>
+                    <label className="text-sm font-medium block mb-2">Full Name</label>
                     <input 
+                      type="text"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 rounded bg-white/20 border border-white/30 focus:outline-none focus:ring-2 focus:ring-[#D4AF37] text-white" 
+                      className="w-full px-4 py-2 rounded bg-white/20 border border-white/30 focus:outline-none focus:ring-2 focus:ring-[#D4AF37] text-white placeholder-white/50" 
                       placeholder="Your name"
+                      disabled={isSubmitting}
                     />
                     {errors.name && <p className="text-red-400 text-sm mt-1">{errors.name}</p>}
                   </div>
                   
                   <div className="form-item">
-                    <label className="text-sm font-medium">Email Address</label>
+                    <label className="text-sm font-medium block mb-2">Email Address</label>
                     <input 
+                      type="email"
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 rounded bg-white/20 border border-white/30 focus:outline-none focus:ring-2 focus:ring-[#D4AF37] text-white" 
+                      className="w-full px-4 py-2 rounded bg-white/20 border border-white/30 focus:outline-none focus:ring-2 focus:ring-[#D4AF37] text-white placeholder-white/50" 
                       placeholder="Your email"
+                      disabled={isSubmitting}
                     />
                     {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email}</p>}
                   </div>
                   
                   <div className="form-item">
-                    <label className="text-sm font-medium">Subject</label>
+                    <label className="text-sm font-medium block mb-2">Subject</label>
                     <input 
+                      type="text"
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 rounded bg-white/20 border border-white/30 focus:outline-none focus:ring-2 focus:ring-[#D4AF37] text-white" 
+                      className="w-full px-4 py-2 rounded bg-white/20 border border-white/30 focus:outline-none focus:ring-2 focus:ring-[#D4AF37] text-white placeholder-white/50" 
                       placeholder="Subject of your message"
+                      disabled={isSubmitting}
                     />
                     {errors.subject && <p className="text-red-400 text-sm mt-1">{errors.subject}</p>}
                   </div>
                   
                   <div className="form-item">
-                    <label className="text-sm font-medium">Message</label>
+                    <label className="text-sm font-medium block mb-2">Message</label>
                     <textarea 
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
                       rows={4} 
-                      className="w-full px-4 py-2 rounded bg-white/20 border border-white/30 focus:outline-none focus:ring-2 focus:ring-[#D4AF37] text-white" 
-                      placeholder="Your message"
+                      className="w-full px-4 py-2 rounded bg-white/20 border border-white/30 focus:outline-none focus:ring-2 focus:ring-[#D4AF37] text-white placeholder-white/50" 
+                      placeholder="Your message (minimum 20 characters)"
+                      disabled={isSubmitting}
                     ></textarea>
                     {errors.message && <p className="text-red-400 text-sm mt-1">{errors.message}</p>}
                   </div>
@@ -240,12 +261,14 @@ const Contact = () => {
                   <button 
                     type="submit" 
                     disabled={isSubmitting}
-                    className="w-full bg-[#D4AF37] text-[#0F2C59] font-secondary font-medium py-3 px-6 rounded hover:bg-opacity-90 transition duration-300 flex items-center justify-center"
+                    className="w-full bg-[#D4AF37] text-[#0F2C59] font-secondary font-medium py-3 px-6 rounded hover:bg-opacity-90 transition duration-300 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <span>{isSubmitting ? "Sending..." : "Send Message"}</span>
-                    <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                    </svg>
+                    {!isSubmitting && (
+                      <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                      </svg>
+                    )}
                   </button>
                 </form>
               </div>
@@ -263,7 +286,7 @@ const Contact = () => {
                 <div className="space-y-6">
                   <div className="flex items-start">
                     <div className="bg-[#D4AF37]/20 rounded-full p-3 mr-4">
-                      <svg className="w-5 h-5 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <svg className="w-5 h-5 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
@@ -276,33 +299,31 @@ const Contact = () => {
                   
                   <div className="flex items-start">
                     <div className="bg-[#D4AF37]/20 rounded-full p-3 mr-4">
-                      <svg className="w-5 h-5 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <svg className="w-5 h-5 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                       </svg>
                     </div>
                     <div>
                       <h4 className="font-secondary font-semibold mb-1">Phone Number</h4>
                       <p className="text-white/80">+234 704 444 4124</p>
-                      {/* <p className="text-white/80">+234 (0) 9876 5432</p> */}
                     </div>
                   </div>
                   
                   <div className="flex items-start">
                     <div className="bg-[#D4AF37]/20 rounded-full p-3 mr-4">
-                      <svg className="w-5 h-5 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <svg className="w-5 h-5 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                       </svg>
                     </div>
                     <div>
                       <h4 className="font-secondary font-semibold mb-1">Email Address</h4>
                       <p className="text-white/80">bosanigeria@gmail.com</p>
-                      {/* <p className="text-white/80">secretary@bosan.org.ng</p> */}
                     </div>
                   </div>
                   
                   <div className="flex items-start">
                     <div className="bg-[#D4AF37]/20 rounded-full p-3 mr-4">
-                      <svg className="w-5 h-5 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <svg className="w-5 h-5 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                     </div>
@@ -317,17 +338,6 @@ const Contact = () => {
                 <div className="mt-8">
                   <h4 className="font-secondary font-semibold mb-3">Follow Us</h4>
                   <div className="flex space-x-4">
-                    {/* <motion.a 
-                      href="https://twitter.com" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="bg-white/20 hover:bg-[#D4AF37]/50 transition duration-300 h-10 w-10 rounded-full flex items-center justify-center"
-                      whileHover={{ y: -3 }}
-                    >
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723 10.097 10.097 0 01-3.127 1.184 4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-                      </svg>
-                    </motion.a> */}
                     <motion.a 
                       href="https://www.youtube.com/channel/UCxz0mnWkMbPoc9B9H47mNtw" 
                       target="_blank" 
@@ -335,32 +345,10 @@ const Contact = () => {
                       className="bg-white/20 hover:bg-[#D4AF37]/50 transition duration-300 h-10 w-10 rounded-full flex items-center justify-center"
                       whileHover={{ y: -3 }}
                     >
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M23.499 6.203a3.008 3.008 0 00-2.089-2.089c-1.87-.501-9.4-.501-9.4-.501s-7.509-.01-9.399.501a3.008 3.008 0 00-2.088 2.09A31.258 31.258 0 000 12.01a31.258 31.258 0 00.523 5.785 3.008 3.008 0 002.088 2.089c1.869.502 9.4.502 9.4.502s7.508 0 9.399-.502a3.008 3.008 0 002.089-2.09 31.258 31.258 0 00.5-5.784 31.258 31.258 0 00-.5-5.808zm-13.891 9.4V8.407l6.266 3.604z"/>
                       </svg>
                     </motion.a>
-                    {/* <motion.a 
-                      href="https://facebook.com" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="bg-white/20 hover:bg-[#D4AF37]/50 transition duration-300 h-10 w-10 rounded-full flex items-center justify-center"
-                      whileHover={{ y: -3 }}
-                    >
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                      </svg>
-                    </motion.a> */}
-                    {/* <motion.a 
-                      href="https://instagram.com" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="bg-white/20 hover:bg-[#D4AF37]/50 transition duration-300 h-10 w-10 rounded-full flex items-center justify-center"
-                      whileHover={{ y: -3 }}
-                    >
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
-                      </svg>
-                    </motion.a> */}
                   </div>
                 </div>
               </div>
@@ -368,8 +356,6 @@ const Contact = () => {
           </div>
         </div>
       </section>
-
-      
     </>
   );
 };

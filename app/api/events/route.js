@@ -1,12 +1,15 @@
-import dbConnect from "@/lib/mongodb";
+import dbConnect from "@/lib/mongoose";
 import Event from "@/models/Event";
 
 export async function GET() {
   await dbConnect();
 
   try {
+    const totalEvents = await Event.countDocuments({});
+
     const events = await Event.find({});
-    return new Response(JSON.stringify({ success: true, data: events }), { 
+
+    return new Response(JSON.stringify({ success: true, data: events, total: totalEvents }), { 
       status: 200 
     });
   } catch (error) {

@@ -1,4 +1,4 @@
-import dbConnect from "@/lib/mongodb";
+import dbConnect from "@/lib/mongoose";
 import Announcement from "@/models/Announcement";
 
 export async function GET(req, { params }) {

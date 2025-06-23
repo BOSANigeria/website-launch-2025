@@ -1,4 +1,3 @@
-// user.model.js
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
@@ -10,7 +9,7 @@ const userSchema = new mongoose.Schema(
 
     // Year and Call-up number for tracking
     elevationYear: { type: Number, required: false },
-    callUpNumber: { type: Number, required: false },
+    callUpNumber: { type: String, required: false },
 
     // Email with validation and uniqueness
     email: { 

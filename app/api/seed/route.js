@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
-import dbConnect from "@/lib/mongodb";
+import connectDB from "@/lib/mongodb";
 import User from "@/models/user.model";
 import crypto from "crypto";
 
 export async function GET() {
   try {
-    await dbConnect();
+    await connectDB();
 
     const users = await User.find();
 

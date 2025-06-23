@@ -13,7 +13,7 @@ export async function middleware(req) {
       console.log('No token, redirecting to login')
       return NextResponse.redirect(new URL('/login', req.url))
     }
-    if (pathname.startsWith('/superadmin')) {
+    if (pathname.startsWith('/super-admin')) {
       console.log('No token, redirecting to login')
       return NextResponse.redirect(new URL('/login', req.url))
     }
@@ -34,7 +34,7 @@ export async function middleware(req) {
     if (pathname === '/login') {
       if (isAdmin) {
         console.log('Admin already logged in, redirecting to superadmin')
-        return NextResponse.redirect(new URL('/superadmin', req.url))
+        return NextResponse.redirect(new URL('/super-admin', req.url))
       } else if (isUser) {
         console.log('User already logged in, redirecting to dashboard')
         return NextResponse.redirect(new URL('/member-dashboard', req.url))
@@ -42,7 +42,7 @@ export async function middleware(req) {
     }
 
     // Block non-admin access to superadmin routes
-    if (pathname.startsWith('/superadmin') && !isAdmin) {
+    if (pathname.startsWith('/super-admin') && !isAdmin) {
       console.log('Non-admin trying to access superadmin, redirecting to dashboard')
       return NextResponse.redirect(new URL('/member-dashboard', req.url))
     }
@@ -73,7 +73,7 @@ export async function middleware(req) {
 export const config = {
   matcher: [
     '/member-dashboard/:path*',
-    '/superadmin/:path*',
+    '/super-admin/:path*',
     '/login',
   ]
 }

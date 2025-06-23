@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
-import dbConnect from "@/lib/mongodb";
+import connectDB from "@/lib/mongodb";
 import User from "@/models/user.model";
 import Payment from "@/models/payment.model";
 
 export async function POST(request) {
   try {
-    await dbConnect();
+    await connectDB();
 
     const { payments } = await request.json();
 

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import dbConnect from '@/lib/mongodb';
+import connectDB from '@/lib/mongodb';
 import User from '../../../models/user.model'; // adjust path as needed
 import bcrypt from 'bcrypt';
 
@@ -10,7 +10,7 @@ export async function POST(req) {
     return NextResponse.json({ success: false, message: 'Missing token or password' }, { status: 400 });
   }
 
-  await dbConnect();
+  await connectDB();
 
   const user = await User.findOne({
     activationToken: token,

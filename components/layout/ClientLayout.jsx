@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import MemberDashboardLayout from "@/components/layout/dashboard/MemberDashboardLayout";
 import { useState } from "react";
 
 const queryClient = new QueryClient();
@@ -16,11 +17,15 @@ export default function ClientLayout({ children }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {!isDashboardRoute && <Navbar />}
-      <main className={`${!isDashboardRoute ? "flex-1" : ""}`}>
-        {children}
-      </main>
-      {!isDashboardRoute && <Footer />}
+      {isDashboardRoute ? (
+        <MemberDashboardLayout>{children}</MemberDashboardLayout>
+      ) : (
+        <>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </>
+      )}
     </QueryClientProvider>
   );
 }

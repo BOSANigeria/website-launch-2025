@@ -1,6 +1,6 @@
 "use client";
 import { useAuth } from "@/hooks/useAuth";
-import DashboardLayout from "../member-dashboard/page";
+
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 
@@ -17,7 +17,6 @@ export default function MemberDashboard() {
   const totalPaid = recentPayments.reduce((sum, payment) => sum + payment.amount, 0);
 
   return (
-    <DashboardLayout>
       <div className="px-4 py-6 sm:px-0">
         <div className="border-4 border-dashed border-gray-200 rounded-lg p-8">
           <h1 className="text-2xl font-bold text-gray-900 mb-6">
@@ -156,6 +155,5 @@ export default function MemberDashboard() {
           </div>
         </div>
       </div>
-    </DashboardLayout>
   );
 }

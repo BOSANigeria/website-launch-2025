@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import MemberDashboardLayout from "@/components/layout/dashboard/MemberDashboardLayout";
+import MemberDashboardLayout from "@/app/member-dashboard/layout";
 import { useState } from "react";
 
 const queryClient = new QueryClient();

@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
-import AdminSidebar from '@/components/layout/admin/DashboardSidebar';
-import AdminHeader from '@/components/layout/admin/DashoardHeader';
+import AdminSidebar from '@/components/layout/admin/AdminSidebar';
+import AdminHeader from '@/components/layout/admin/AdminHeader';
 
 const DashboardLayout = ({ children, title = "Dashboard" }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);

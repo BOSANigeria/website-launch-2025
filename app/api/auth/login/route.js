@@ -2,11 +2,7 @@ import { NextResponse } from 'next/server';
 import User from '@/models/user.model'; // Adjust path if needed
 import bcrypt from 'bcryptjs';
 import { SignJWT } from 'jose';
-<<<<<<< HEAD
-import connectDB from '@/lib/mongodb';
-=======
 import { connectDB } from '@/lib/mongodb'; // assuming you have this
->>>>>>> acda6954a52be60ae0cf22cb4eb211a3568336ab
 
 export async function POST(req) {
   try {
@@ -44,11 +40,6 @@ export async function POST(req) {
       .setExpirationTime('7d')
       .sign(secret);
 
-<<<<<<< HEAD
-    // Send as HTTP-only cookie
-    const response = NextResponse.json({ message: 'Login successful' });
-    response.cookies.set('token', token, {
-=======
     const res = NextResponse.json({ 
       message: 'Login successful',
       id: user._id,
@@ -56,7 +47,6 @@ export async function POST(req) {
       role: user.role 
     });
     res.cookies.set('token', token, {
->>>>>>> acda6954a52be60ae0cf22cb4eb211a3568336ab
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'strict',

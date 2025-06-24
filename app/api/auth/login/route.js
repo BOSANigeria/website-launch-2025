@@ -54,7 +54,7 @@ export async function POST(req) {
       path: '/',
     });
 
-    return response;
+    return res;
   } catch (err) {
     console.error(err);
     return NextResponse.json({ error: 'Server error' }, { status: 500 });

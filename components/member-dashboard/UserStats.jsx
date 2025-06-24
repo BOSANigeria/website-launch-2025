@@ -3,6 +3,8 @@ import { useAuth } from "@/hooks/useAuth";
 
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
+import { useEffect, useState } from "react";
+import { useRecentTransactions } from '@/hooks/useRecentTransactions';
 
 export default function UserStats() {
   const { user } = useAuth();
@@ -15,6 +17,51 @@ export default function UserStats() {
 
   const recentPayments = paymentData?.payments || [];
   const totalPaid = recentPayments.reduce((sum, payment) => sum + payment.amount, 0);
+
+  const [transactions, setTransactions] = useState([]);
+      const [loading, setLoading] = useState(true);
+      const [error, setError] = useState(null);
+  
+      useEffect(() => {
+          const fetchTransactionCount = async () => {
+              try {
+                  setLoading(true);
+                  const response = await fetch('/api/transactions/user');
+                  
+                  if (!response.ok) {
+                      throw new Error(`HTTP error! status: ${response.status}`);
+                  }
+                  
+                  const data = await response.json();
+                  
+                  if (data.success) {
+                      setTransactions(data.transactions || []);
+                  } else {
+                      setError(data.message || 'Failed to fetch transactions');
+                  }
+              } catch (error) {
+                  console.error('Error fetching transaction count:', error);
+                  setError('Failed to fetch transactions');
+              } finally {
+                  setLoading(false);
+              }
+          };
+  
+          fetchTransactionCount();
+      }, []);
+  
+      if (loading) {
+          return <div className="flex justify-center items-center p-8">Loading...</div>;
+      }
+  
+      if (error) {
+          return <div className="text-red-500 p-4">Error: {error}</div>;
+      }
+  
+      // Calculate stats from transactions
+      const totalTransactions = transactions.length;
+      const nextPayment = 0; 
+      const outstandingPayment = 0;
 
   return (
       <div className="px-4 py-6 sm:px-0">
@@ -61,7 +108,7 @@ export default function UserStats() {
                         Payment Records
                       </dt>
                       <dd className="text-lg font-medium text-gray-900">
-                        {recentPayments.length}
+                        {totalTransactions}
                       </dd>
                     </dl>
                   </div>

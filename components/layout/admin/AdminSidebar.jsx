@@ -102,7 +102,7 @@ const AdminSidebar = ({ isMobile = false, isOpen = false, onClose }) => {
 
   // Desktop sidebar
   return (
-    <aside className="w-64 hidden md:flex flex-col bg-[#0F2C59] text-white border-r shadow-sm">
+    <aside className="w-64 hidden md:flex flex-col bg-black text-white border-r shadow-sm">
       <div className="h-16 flex items-center justify-center border-b font-bold text-lg">
         Admin Area
       </div>

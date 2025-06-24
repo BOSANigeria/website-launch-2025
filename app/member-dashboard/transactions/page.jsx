@@ -35,11 +35,15 @@ const Transactions = () => {
     if (searchTerm) {
       filtered = filtered.filter(
         (transaction) =>
-          transaction.transactionId?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          transaction.reference?.toLowerCase().includes(searchTerm.toLowerCase()) ||
           transaction.amount?.toString().includes(searchTerm) ||
-          transaction.description?.toLowerCase().includes(searchTerm.toLowerCase())
+          transaction.Name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          transaction.year?.toString().includes(searchTerm)
       );
     }
+
+    // Sort by year in descending order (latest first)
+    filtered = filtered.sort((a, b) => b.year - a.year);
 
     setFilteredTransactions(filtered);
     setCurrentPage(1); // Reset to first page when filtering
@@ -58,7 +62,10 @@ const Transactions = () => {
 
       if (response.ok) {
         const data = await response.json();
-        setTransactions(data.transactions || []);
+        // console.log(data)
+        // Sort transactions by year in descending order when fetched
+        const sortedTransactions = (data.transactions || []).sort((a, b) => b.year - a.year);
+        setTransactions(sortedTransactions);
       } else {
         const errorData = await response.json();
         setError(errorData.message || "Failed to fetch transactions");
@@ -190,14 +197,14 @@ const Transactions = () => {
                 : "No transactions found"}
             </div>
           ) : (
-            <table className="w-full text-left text-sm min-w-[600px]">
+            <table className="w-full text-left text-sm min-w-full">
               <thead>
                 <tr>
                   <th className="bg-white text-[#0F2C59] border border-gray-300 px-4 py-2">
-                    Transaction ID
+                    Reference
                   </th>
                   <th className="bg-white text-[#0F2C59] border border-gray-300 px-4 py-2">
-                    Description
+                    Name
                   </th>
                   <th className="bg-white text-[#0F2C59] border border-gray-300 px-4 py-2">
                     Amount
@@ -206,7 +213,10 @@ const Transactions = () => {
                     Status
                   </th>
                   <th className="bg-white text-[#0F2C59] border border-gray-300 px-4 py-2">
-                    Date
+                    Year
+                  </th>
+                  <th className="bg-white text-[#0F2C59] border border-gray-300 px-4 py-2">
+                    Created Date
                   </th>
                 </tr>
               </thead>
@@ -214,10 +224,10 @@ const Transactions = () => {
                 {currentTransactions.map((transaction) => (
                   <tr key={transaction._id} className="hover:bg-gray-50">
                     <td className="border border-gray-300 px-4 py-2 font-mono">
-                      {transaction._id}
+                      {transaction.reference}
                     </td>
                     <td className="border border-gray-300 px-4 py-2">
-                      {transaction.description || transaction.type || "Payment"}
+                      {transaction.Name}
                     </td>
                     <td className="border border-gray-300 px-4 py-2 font-semibold">
                       {formatAmount(transaction.amount)}
@@ -231,8 +241,11 @@ const Transactions = () => {
                         {transaction.status || "Completed"}
                       </span>
                     </td>
+                    <td className="border border-gray-300 px-4 py-2 font-semibold">
+                      {transaction.year}
+                    </td>
                     <td className="border border-gray-300 px-4 py-2">
-                      {formatDate(transaction.createdAt || transaction.date)}
+                      {formatDate(transaction.createdAt)}
                     </td>
                   </tr>
                 ))}

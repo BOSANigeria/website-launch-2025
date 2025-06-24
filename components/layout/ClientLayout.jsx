@@ -18,7 +18,7 @@ export default function ClientLayout({ children }) {
   return (
     <QueryClientProvider client={queryClient}>
       {isDashboardRoute ? (
-        <MemberDashboardLayout>{children}</MemberDashboardLayout>
+        <>{children}</>
       ) : (
         <>
           <Navbar />

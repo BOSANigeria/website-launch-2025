@@ -58,9 +58,9 @@ export default function MemberDashboardLayout({ children }) {
         </main>
         
         {/* Debug info - remove in production */}
-        <div className="fixed bottom-4 left-4 bg-black text-white p-2 rounded text-xs md:hidden z-50">
+        {/* <div className="fixed bottom-4 left-4 bg-black text-white p-2 rounded text-xs md:hidden z-50">
           Mobile Menu: {sidebarOpen ? 'OPEN' : 'CLOSED'}
-        </div>
+        </div> */}
       </div>
     </div>
   );

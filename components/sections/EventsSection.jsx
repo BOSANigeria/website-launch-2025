@@ -10,9 +10,9 @@ const fadeIn = {
 const events = [
   {
     title: "BOSAN Annual General Meeting",
-    date: "2025-06-15", // Use ISO format for proper date handling
+    date: "2025-06-28", // Use ISO format for proper date handling
     location: "Ibadan, Nigeria",
-    venue: "International Conference Center",
+    venue: "Jogor Centre, Harvester Drive, Liberty road",
     img: "/assets/events/agm.jpeg",
     desc: "An elegant evening celebrating legal excellence, legacy, and community.",
     status: "upcoming", // upcoming, live, past, cancelled
@@ -43,7 +43,7 @@ const events = [
     tags: ["Milestone", "Celebration", "Historic"]
   },
   {
-    title: "2025 BOSAN Scholarship Awards for Law Students",
+    title: "2025 BOSAN Scholarship Awards",
     date: "TBD", // To Be Determined
     location: "TBD",
     venue: "Oriental Hotel, VI",

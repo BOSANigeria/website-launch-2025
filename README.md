@@ -1,2 +1,2 @@
 # BOSANigeria
-## A Nextjs powered application
+## A Nextjs powered application guide

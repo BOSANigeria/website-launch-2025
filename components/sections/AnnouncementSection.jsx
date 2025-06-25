@@ -8,7 +8,7 @@ const announcements = [
     id: "1",
     title: "BOSAN AGM Scheduled for 28th June, 2025",
     content:
-      "The Body of Senior Advocates of Nigeria (BOSAN) will hold its Annual General Meeting at Manhattan event center  in Ibadan, NIgeria in June 2025.",
+      "The Body of Senior Advocates of Nigeria (BOSAN) will hold its Annual General Meeting at Jogor Centre, Harvester Drive, Liberty road, in Ibadan, NIgeria on 28th day of June 2025.",
   },
   {
     id: "2",

@@ -4,9 +4,18 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X, Lock, Home, Users, Calendar, BookOpen, Phone, Info } from "lucide-react";
+import {
+  Menu,
+  X,
+  Lock,
+  Home,
+  Users,
+  Calendar,
+  BookOpen,
+  Phone,
+  Info,
+} from "lucide-react";
 import { useAuth } from "../../hooks/useAuth";
-
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -15,7 +24,6 @@ const Navbar = () => {
 
   const { data: user, isLoading, isError } = useAuth();
   const isAuthenticated = !user && !isError;
-
 
   const navLinks = [
     { title: "Home", path: "/", icon: Home },
@@ -27,12 +35,10 @@ const Navbar = () => {
     { title: "Contact", path: "/contact", icon: Phone },
   ];
 
-  // Close mobile menu on route change
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [pathname]);
 
-  // Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -52,16 +58,15 @@ const Navbar = () => {
     };
   }, [mobileMenuOpen]);
 
-  // Prevent body scroll when menu is open
   useEffect(() => {
     if (mobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
-    
+
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, [mobileMenuOpen]);
 
@@ -107,18 +112,18 @@ const Navbar = () => {
               );
             })}
             {isLoading ? (
-              <div className="ml-4 text-sm text-gray-500 animate-pulse">Checking...</div>
-            ):(
-
-            <Link
-              href={isAuthenticated ? "/member-dashboard" : "/login"}
-              className="ml-4 inline-flex items-center px-4 py-4 text-lg font-medium text-white bg-black hover:bg-[#D4AF37] transition"
-            >
-              <Lock className="w-4 h-4 mr-2" />
-              {isAuthenticated ? "Member Dashboard" : "Member Login"}
-            </Link>
+              <div className="ml-4 text-sm text-gray-500 animate-pulse">
+                Checking...
+              </div>
+            ) : (
+              <Link
+                href={isAuthenticated ? "/member-dashboard" : "/login"}
+                className="ml-4 inline-flex items-center px-4 py-4 text-lg font-medium text-white bg-black hover:bg-[#D4AF37] transition"
+              >
+                <Lock className="w-4 h-4 mr-2" />
+                {isAuthenticated ? "Member Dashboard" : "Member Login"}
+              </Link>
             )}
-
           </nav>
 
           {/* Mobile Menu Button */}
@@ -127,8 +132,8 @@ const Navbar = () => {
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle mobile menu"
               className={`relative z-50 p-2 rounded-lg transition-all duration-300 ${
-                mobileMenuOpen 
-                  ? "bg-black text-white fixed top-0" 
+                mobileMenuOpen
+                  ? "bg-black text-white fixed top-0"
                   : "text-[#0F2C59] hover:bg-gray-100"
               }`}
             >
@@ -145,17 +150,15 @@ const Navbar = () => {
       {/* Mobile Menu Overlay */}
       <div
         className={`md:hidden fixed inset-0 z-40 transition-all duration-300 ${
-          mobileMenuOpen 
-            ? "opacity-100 pointer-events-auto" 
-            : "opacity-0 pointer-events-none"
+          mobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       >
         {/* Backdrop */}
-        <div 
+        <div
           className="absolute inset-0 bg-black/50 backdrop-blur-sm"
           onClick={() => setMobileMenuOpen(false)}
         />
-        
+
         {/* Menu Panel */}
         <div
           ref={mobileMenuRef}
@@ -182,51 +185,58 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Menu Content - Scrollable */}
-          <div className="flex-1 flex flex-col px-6 py-4 min-h-0">
-            <nav className="flex-1 space-y-4 overflow-y-auto">
-              {navLinks.map((link, index) => {
-                const IconComponent = link.icon;
-                const isActive = pathname === link.path;
-                
-                return (
-                  <Link
-                    key={link.path}
-                    href={link.path}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`group flex items-center space-x-3 p-3 rounded-lg transition-all duration-200 transform hover:scale-[1.02] ${
-                      isActive
-                        ? "bg-black text-white shadow-lg"
-                        : "text-gray-700 hover:bg-gray-50 hover:text-[#0F2C59]"
-                    }`}
-                    style={{
-                      animationDelay: mobileMenuOpen ? `${index * 50}ms` : '0ms',
-                      animation: mobileMenuOpen ? 'slideInRight 0.3s ease-out forwards' : 'none'
-                    }}
-                  >
-                    <div className={`p-2 rounded-lg transition-colors ${
-                      isActive 
-                        ? "bg-white/20" 
-                        : "bg-gray-100 group-hover:bg-[#0F2C59]/10"
-                    }`}>
-                      <IconComponent className={`w-4 h-4 ${
-                        isActive ? "text-white" : "text-[#0F2C59]"
-                      }`} />
-                    </div>
-                    <div className="flex-1">
-                      <span className="font-semibold">{link.title}</span>
-                      {isActive && (
-                        <div className="w-8 h-0.5 bg-[#D4AF37] mt-1 rounded-full" />
-                      )}
-                    </div>
-                  </Link>
-                );
-              })}
-            </nav>
+          {/* Menu Content */}
+          <div className="flex flex-col h-full px-6 py-4">
+            {/* Scrollable Nav */}
+            <div className="flex-1 overflow-y-auto space-y-4">
+              <nav>
+                {navLinks.map((link, index) => {
+                  const IconComponent = link.icon;
+                  const isActive = pathname === link.path;
 
-            {/* Member Login Button - Fixed at bottom */}
-            <div className="pt-4 border-t border-gray-200 flex-shrink-0">
-              {isLoading ? (<div className="ml-4 text-sm text-gray-500 animate-pulse">Checking...</div>): (
+                  return (
+                    <Link
+                      key={link.path}
+                      href={link.path}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`group flex items-center space-x-3 p-3 rounded-lg transition-all duration-200 transform hover:scale-[1.02] ${
+                        isActive
+                          ? "bg-black text-white shadow-lg"
+                          : "text-gray-700 hover:bg-gray-50 hover:text-[#0F2C59]"
+                      }`}
+                      style={{
+                        animationDelay: mobileMenuOpen ? `${index * 50}ms` : "0ms",
+                        animation: mobileMenuOpen ? "slideInRight 0.3s ease-out forwards" : "none",
+                      }}
+                    >
+                      <div
+                        className={`p-2 rounded-lg transition-colors ${
+                          isActive ? "bg-white/20" : "bg-gray-100 group-hover:bg-[#0F2C59]/10"
+                        }`}
+                      >
+                        <IconComponent
+                          className={`w-4 h-4 ${
+                            isActive ? "text-white" : "text-[#0F2C59]"
+                          }`}
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <span className="font-semibold">{link.title}</span>
+                        {isActive && (
+                          <div className="w-8 h-0.5 bg-[#D4AF37] mt-1 rounded-full" />
+                        )}
+                      </div>
+                    </Link>
+                  );
+                })}
+              </nav>
+            </div>
+
+            {/* Member Login CTA */}
+            <div className="pt-4 border-t border-gray-200">
+              {isLoading ? (
+                <div className="text-sm text-gray-500 animate-pulse">Checking...</div>
+              ) : (
                 <Link
                   href={isAuthenticated ? "/member-dashboard" : "/login"}
                   onClick={() => setMobileMenuOpen(false)}
@@ -237,8 +247,6 @@ const Navbar = () => {
                 </Link>
               )}
 
-              
-              {/* Footer */}
               <div className="mt-3 text-center text-gray-500 text-xs">
                 <p>Body of Senior Advocates of Nigeria</p>
               </div>

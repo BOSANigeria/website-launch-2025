@@ -233,24 +233,24 @@ const Navbar = () => {
             </div>
 
             {/* Member Login CTA */}
-            <div className="pt-4 border-t border-gray-200">
-              {isLoading ? (
-                <div className="text-sm text-gray-500 animate-pulse">Checking...</div>
-              ) : (
-                <Link
-                  href={isAuthenticated ? "/member-dashboard" : "/login"}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-center space-x-2 w-full p-3 bg-black text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200"
-                >
-                  <Lock className="w-4 h-4" />
-                  <span>{isAuthenticated ? "Member Dashboard" : "Member Login"}</span>
-                </Link>
-              )}
+            {isLoading ? (
+              <div className="text-sm text-gray-500 animate-pulse">Checking...</div>
+            ) : (
+              <Link
+                href={isAuthenticated ? "/member-dashboard" : "/login"}
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-center space-x-2 w-full p-3 mb-4 bg-black text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200"
+              >
+                <Lock className="w-4 h-4" />
+                <span>{isAuthenticated ? "Member Dashboard" : "Member Login"}</span>
+              </Link>
+            )}
 
-              <div className="mt-3 text-center text-gray-500 text-xs">
-                <p>Body of Senior Advocates of Nigeria</p>
-              </div>
+            {/* Horizontal Rule + Footer BELOW */}
+            <div className="border-t border-gray-200 pt-3 text-center text-gray-500 text-xs">
+              <p>Body of Senior Advocates of Nigeria</p>
             </div>
+
           </div>
         </div>
       </div>

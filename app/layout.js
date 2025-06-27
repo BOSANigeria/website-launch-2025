@@ -17,10 +17,15 @@ export const metadata = {
     "Nigerian Bar Association",
     "List of SANs in Nigeria",
   ],
-  authors: [{ name: "Hokage Creative Labs" }],
+  authors: [{ name: "Hokage Creative Labs", url: "https://hokagecreativelabs.com" }],
   creator: "Hokage Creative Labs",
   publisher: "BOSAN Nigeria",
   metadataBase: new URL("https://bosanigeria.com"),
+  icons: {
+    icon: "/assets/BOSAN-logo.png", // Favicon (ensure it exists in /public/assets)
+    shortcut: "/assets/BOSAN-logo.png",
+    apple: "/assets/BOSAN-logo.png",
+  },
   openGraph: {
     title: "Body of Senior Advocates of Nigeria (BOSAN)",
     description:
@@ -29,10 +34,11 @@ export const metadata = {
     siteName: "BOSAN Nigeria",
     images: [
       {
-        url: "https://bosanigeria.com/og-image.jpg",
+        url: "https://bosanigeria.com/og-image.jpg", // should be a wide 1200x630 image with logo + branding
         width: 1200,
         height: 630,
         alt: "BOSAN - Body of Senior Advocates of Nigeria",
+        type: "image/jpeg",
       },
     ],
     locale: "en_NG",
@@ -48,7 +54,21 @@ export const metadata = {
     images: ["https://bosanigeria.com/og-image.jpg"],
   },
   themeColor: "#4BADFD",
+  category: "Legal",
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+    },
+  },
+  applicationName: "BOSAN Nigeria",
+  generator: "Next.js",
 };
+
 
 export default function RootLayout({ children }) {
   return (

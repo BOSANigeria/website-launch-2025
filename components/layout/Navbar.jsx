@@ -31,6 +31,7 @@ const Navbar = () => {
     { title: "Committee", path: "/committee", icon: Users },
     { title: "Events", path: "/events", icon: Calendar },
     { title: "Members", path: "/members", icon: Users },
+    { title: "Induction", path: "/induction", icon: Users },
     { title: "Resources", path: "/resources", icon: BookOpen },
     { title: "Contact", path: "/contact", icon: Phone },
   ];
@@ -162,7 +163,7 @@ const Navbar = () => {
         {/* Menu Panel */}
         <div
           ref={mobileMenuRef}
-          className={`absolute right-0 top-0 h-screen w-80 max-w-[85vw] bg-white shadow-2xl transform transition-all duration-300 ease-out flex flex-col ${
+          className={`absolute right-0 top-0 max-h-screen w-80 max-w-[85vw] bg-white shadow-2xl transform transition-all duration-300 ease-out flex flex-col overflow-y-auto ${
             mobileMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >

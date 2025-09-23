@@ -57,12 +57,29 @@ const categories = [
       },
     ],
   },
-  // {
-  //   title: "Other Categories",
-  //   description:
-  //     "Placeholder for additional induction categories that will be added later.",
-  //   files: [],
-  // },
+  {
+    title: "2025 Facilitators' Papers",
+    description:
+      "Papers and presentations from facilitators for the 2025 induction sessions.",
+    files: [
+      {
+        name: "Access to Justice - Role of the SAN",
+        url: "/assets/induction/facilitators/Access to Justice - Role of the SAN.pdf",
+      },
+      {
+        name: "EXCELLENCE AT THE BAR BY DR ONYECHI IKPEAZU OON SAN",
+        url: "/assets/induction/facilitators/EXCELLENCE AT THE BAR BY DR ONYECHI IKPEAZU OON SAN.pdf",
+      },
+      {
+        name: "NIGERIAN JURISPRUDENCE THE CONTRIBUTIONS AND IMPACT OF SENIOR ADVOCATES OF NIGERIA TO AND ON THE ADMINISTRATION OF JUSTICE IN NIGERIA BY HON JUSTICE EJEMBI EKO, JSC",
+        url: "/assets/induction/facilitators/NIGERIAN JURISPRUDENCE THE CONTRIBUTIONS AND IMPACT OF SENIOR ADVOCATES OF NIGERIA TO AND ON THE ADMINISTRATION OF JUSTICE IN NIGERIA BY HON JUSTICE EJEMBI EKO, JSC.pdf",
+      },
+      {
+        name: "PAPER BY HON. JUSTICE MOSUNMOLA DIPEOLU, CHIEF JUDGE OGUN STATE AT THE 2025 BOSAN INDUCTION PROGRAMME_compressed",  
+        url: "/assets/induction/facilitators/PAPER BY HON. JUSTICE MOSUNMOLA DIPEOLU, CHIEF JUDGE OGUN STATE AT THE 2025 BOSAN INDUCTION PROGRAMME_compressed.pdf",
+      }
+    ],
+  },
 ];
 
 const Category = ({ category, isOpen, onToggle }) => {

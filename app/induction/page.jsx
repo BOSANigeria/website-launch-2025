@@ -34,7 +34,11 @@ const categories = [
     title: "2025 Induction",
     description:
       "Documents, schedules, and resources specific to the 2025 induction year.",
-    files: [
+    files: [  
+      {
+        name: "Induction Program 2025_compressed",
+        url: "/assets/induction/Induction Program 2025_compressed (1).pdf",
+      },
       {
         name: "Ethics and Essence of the Inner Bar by  Prof. Fabian Ajogwu, SAN",
         url: "/assets/induction/Ethics and Essence of the Inner Bar by  Prof. Fabian Ajogwu, SAN.pdf",

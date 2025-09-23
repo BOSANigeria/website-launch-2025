@@ -36,7 +36,7 @@ const categories = [
       "Documents, schedules, and resources specific to the 2025 induction year.",
     files: [  
       {
-        name: "Induction Program 2025_compressed",
+        name: "Induction Program 2025",
         url: "/assets/induction/Induction Program 2025_compressed (1).pdf",
       },
       {

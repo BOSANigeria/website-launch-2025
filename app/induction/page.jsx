@@ -63,6 +63,10 @@ const categories = [
         name: "THE EVOLVING ROLE OF SENIOR ADVOCATES IN THE ADMINISTRATION OF JUSTICE AND NATION BUILDING BY FIDELIS ODITAH, KC, SAN",
         url: "/assets/induction/THE EVOLVING ROLE OF SENIOR ADVOCATES IN THE ADMINISTRATION OF JUSTICE AND NATION BUILDING BY FIDELIS ODITAH, KC, SAN.pdf",
       },
+      {
+        name: "Mentorship & Knowledge Transfer - Preserving The Standard of The Inner Bar",
+        url: "/assets/induction/Mentorship & Knowledge Transfer - Preserving The Standard of The Inner Bar.pptx",
+      },
     ],
   },
   {
@@ -96,7 +100,11 @@ const categories = [
       },
       {
         name: "PROF. Yusuf Ali SAN - SAN RANK PAPER POWERPOINT",
-        url: "/assets/induction/facilitators/PROF. Yusuf Ali SAN - SAN RANK PAPER POWERPOINT.pptx",
+        url: "/assets/induction/PROF. Yusuf Ali SAN - SAN RANK PAPER POWERPOINT.pptx",
+      },
+      {
+        name: "Access to Justice - Role of the SAN",
+        url: "/assets/induction/Access to Justice - Role of the SAN.pdf",
       }
     ],
   },

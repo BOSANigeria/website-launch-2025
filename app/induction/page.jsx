@@ -20,6 +20,14 @@ const categories = [
         name: "BOSAN INDUCTION PRE-READING MATERIAL",
         url: "/assets/induction/BOSAN INDUCTION PRE-READING MATERIAL_compressed.pdf",
       },
+      {
+        name: "BOSAN ETHICS COMMITTEE GUIDELINES PROCEDURAL RULES 2023",
+        url: "BOSAN ETHICS COMMITTEE GUIDELINES PROCEDURAL RULES 2023 (2).pdf",
+      },
+      {
+        name: "CODE OF DRESSING FOR SENIOR ADVOCATES OF NIGERIA",
+        url: "/assets/induction/CODE OF DRESSING FOR SENIOR ADVOCATES OF NIGERIA .pdf",
+      }
     ],
   },
   {
@@ -72,7 +80,7 @@ const categories = [
       },
       {
         name: "NIGERIAN JURISPRUDENCE THE CONTRIBUTIONS AND IMPACT OF SENIOR ADVOCATES OF NIGERIA TO AND ON THE ADMINISTRATION OF JUSTICE IN NIGERIA BY HON JUSTICE EJEMBI EKO, JSC",
-        url: "/assets/induction/facilitators/NIGERIAN JURISPRUDENCE THE CONTRIBUTIONS AND IMPACT OF THE SAN TO AND ON THE ADMINISTRATION OF JUSTICE IN NIGERIA - HON JUSTICE EJEMBI EKO, JSC .pdf",
+        url: "/assets/induction/facilitators/NIGERIAN JURISPRUDENCE THE CONTRIBUTIONS AND IMPACT OF SENIOR ADVOCATES OF NIGERIA.pdf",
       },
       {
         name: "PAPER BY HON. JUSTICE MOSUNMOLA DIPEOLU, CHIEF JUDGE OGUN STATE AT THE 2025 BOSAN INDUCTION PROGRAMME",  
@@ -81,6 +89,14 @@ const categories = [
       {
         name: "TECHNOLOGY IN LEGAL PRACTICE.pdf",
         url: "/assets/induction/facilitators/TECHNOLOGY IN LEGAL PRACTICE_compressed.pdf",
+      },
+      {
+        name: "THE SENIOR ADVOCATE OF NIGERIA RANK PAPER -PROF YUSUF ALI SAN",
+        url: "/assets/induction/facilitators/THE SENIOR ADVOCATE OF NIGERIA RANK PAPER -PROF YUSUF ALI SAN.pdf",
+      },
+      {
+        name: "PROF. Yusuf Ali SAN - SAN RANK PAPER POWERPOINT",
+        url: "/assets/induction/facilitators/PROF. Yusuf Ali SAN - SAN RANK PAPER POWERPOINT.pptx",
       }
     ],
   },

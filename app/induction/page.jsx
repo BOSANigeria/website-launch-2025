@@ -71,6 +71,14 @@ const categories = [
         name: "Mentorship & Knowledge Transfer - Preserving The Standard of The Inner Bar",
         url: "/assets/induction/Mentorship & Knowledge Transfer - Preserving The Standard of The Inner Bar.pptx",
       },
+      {
+        name: "ADDRESS AND ADMONITION BY ASIWAJU ADEGBOYEGA S",
+        url: "/assets/induction/ADDRESS AND ADMONITION BY ASIWAJU ADEGBOYEGA S.pdf",
+      },
+      {
+        name: "TECHNOLOGY IN LEGAL PRACTICE 2",
+        url: "/assets/induction/TECHNOLOGY IN LEGAL PRACTICE 2.pdf",
+      },
     ],
   },
   {
